@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+  <style>
+    body {
+      background: #fafafa;
+      font-family: 'Roboto', 'Noto', sans-serif;
+      font-size: 13px;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" as="style" onload="this.onload=null;this.rel='stylesheet'">
+</head>
+<body>
+  <div id="demo"></div>
+
+  <script type="module">
+    import { html, render } from 'lit-html';
+    import { fr } from 'date-fns/locale';
+    import '../dist/wc-range-datepicker.js';
+
+    const disabledDays = ['1504994400','1504908000','1502402400'];
+
+    render(
+      html`
+        <h3>Basic range-datepicker range</h3>
+        <wc-range-datepicker></wc-range-datepicker>
+
+        <h3>Basic range-datepicker range with preselection of the month</h3>
+        <wc-range-datepicker month="09"></wc-range-datepicker>
+
+        <h3>Basic range-datepicker range with min and max</h3>
+        <wc-range-datepicker month="08" year="2017" min="1504216800" max="1504908000"></wc-range-datepicker>
+
+        <h3>Basic range-datepicker range with disabled day</h3>
+        <wc-range-datepicker month="08" year="2017" .disabledDays="${disabledDays}"></wc-range-datepicker>
+
+        <h3>Basic range-datepicker with option to change year</h3>
+        <wc-range-datepicker enableYearChange></wc-range-datepicker>
+
+        <h3>Basic range-datepicker no-range</h3>
+        <wc-range-datepicker noRange></wc-range-datepicker>
+
+        <h3>Basic range-datepicker forceNarrow</h3>
+        <wc-range-datepicker forceNarrow></wc-range-datepicker>
+
+        <h3>Basic range-datepicker range with locale</h3>
+        <wc-range-datepicker .locale="${fr}"></wc-range-datepicker>
+      `,
+      document.querySelector('#demo')
+    );
+  </script>
+</body>
+</html>
