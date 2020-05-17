@@ -127,11 +127,11 @@ export class RangeDatepickerCalendar extends LitElement {
   /**
    * Date to. Format is Unix timestamp.
    */
-  @property({ type: String }) dateTo?: string;
+  @property({ type: String }) dateTo: string|null = null;
 
-  @property({ type: String }) hoveredDate?: string;
+  @property({ type: String }) hoveredDate: string|null = null;
 
-  @property({ type: String }) day?: string;
+  @property({ type: String }) day: string|null = null;
 
   @property({ type: Boolean }) enableMonthChange: boolean = true;
   @property({ type: Boolean }) enableYearChange: boolean = false;
@@ -162,12 +162,12 @@ export class RangeDatepickerCalendar extends LitElement {
   /**
    * Max date. Format is Unix timestamp
    */
-  @property({ type: String }) max: string = '';
+  @property({ type: String }) max: string|null = null;
 
   /**
    * Minimal date. Format is Unix timestamp
    */
-  @property({ type: String }) min: string = '';
+  @property({ type: String }) min: string|null = null;
 
   _locale?: Object;
   currentDate: number;
@@ -395,8 +395,8 @@ export class RangeDatepickerCalendar extends LitElement {
     if (!this.noRange) {
       if (this.dateFrom && this.dateTo) {
         this.dateFrom = date;
-        this.dateTo = undefined;
-        this.hoveredDate = undefined;
+        this.dateTo = null;
+        this.hoveredDate = null;
       } else if (!this.dateFrom || (this.dateFrom && date < this.dateFrom)) {
         this.dateFrom = date;
       } else if (!this.dateTo || (this.dateTo && date > this.dateTo)) {

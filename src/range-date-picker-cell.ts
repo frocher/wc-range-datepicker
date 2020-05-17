@@ -55,15 +55,15 @@ class RangeDatepickerCell extends LitElement {
       opacity: 0.4;
     }`;
 
-  @property({type: Object}) day?: any;
+  @property({type: Object}) day: any;
   @property({type: Boolean}) selected: boolean = false;
   @property({type: Boolean}) hovered: boolean = false;
-  @property({type: String}) dateTo?: string;
-  @property({type: String}) dateFrom?: string;
-  @property({type: String}) month?: string;
-  @property({type: String}) hoveredDate?: string;
-  @property({type: Number}) min?: number;
-  @property({type: Number}) max?: number;
+  @property({type: String}) dateTo: string|null = null;
+  @property({type: String}) dateFrom: string|null = null;
+  @property({type: String}) month: string|null = null;
+  @property({type: String}) hoveredDate: string|null = null;
+  @property({type: Number}) min: number|null = null;
+  @property({type: Number}) max: number|null = null;
   @property({type: Boolean}) disabled: boolean = false;
   @property({type: Boolean}) isCurrentDate: boolean = false;
   @property({type: Array}) disabledDays: Array<string> = [];

@@ -22,12 +22,12 @@ export class RangeDatepicker extends LitElement {
   /**
    * Date from. Format is Unix timestamp.
    */
-  @property({ type: String }) dateFrom?: string;
+  @property({ type: String }) dateFrom: string|null = null;
 
   /**
    * Date to. Format is Unix timestamp.
    */
-  @property({ type: String }) dateTo?: string;
+  @property({ type: String }) dateTo: string|null = null;
 
   /**
    * Array of disabled days. Format is Unix timestamp.
@@ -47,22 +47,22 @@ export class RangeDatepicker extends LitElement {
   /**
    * Current hovered date. Format is Unix timestamp.
    */
-  @property({ type: String }) hoveredDate?: string;
+  @property({ type: String }) hoveredDate: string|null = null;
 
   /**
    * Set locale of the calendar.
    */
-  @property({ type: Object }) locale?: Locale;
+  @property({ type: Object }) locale: Locale|null = null;
 
   /**
    * Max date. Format is Unix timestamp
    */
-  @property({ type: String }) max?: string;
+  @property({ type: String }) max: string|null = null;;
 
   /**
    * Minimal date. Format is Unix timestamp
    */
-  @property({ type: String }) min?: string;
+  @property({ type: String }) min: string|null = null;;
 
   /**
    * Set month.
@@ -91,8 +91,8 @@ export class RangeDatepicker extends LitElement {
    */
   @property({ type: String }) defaultAs: String = 'today';
 
-  @property({ type: Number }) monthPlus?: number;
-  @property({ type: Number }) yearPlus?: number;
+  @property({ type: Number }) protected monthPlus: number|null = null;
+  @property({ type: Number }) protected yearPlus: number|null = null;
 
   constructor() {
     super();
@@ -238,8 +238,8 @@ export class RangeDatepicker extends LitElement {
 
   noRangeChanged(isNoRange: boolean, wasNoRange: boolean) {
     if (!wasNoRange && isNoRange) {
-      this.dateTo = undefined;
-      this.hoveredDate = undefined;
+      this.dateTo = null;
+      this.hoveredDate = null;
     }
   }
 
