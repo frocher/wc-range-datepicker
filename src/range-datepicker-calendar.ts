@@ -1,6 +1,5 @@
 import { html, css, LitElement, property } from 'lit-element';
 import '@material/mwc-icon-button';
-import '@material/mwc-select';
 import '@material/mwc-menu';
 import '@material/mwc-list/mwc-list-item';
 import { addDays, addMonths, addYears, endOfMonth, format, getDay, parse, startOfDay, subMonths, subYears } from 'date-fns';
