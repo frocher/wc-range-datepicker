@@ -22,77 +22,77 @@ export class RangeDatepicker extends LitElement {
   /**
    * Date from. Format is Unix timestamp.
    */
-  @property({type: String}) dateFrom?: string;
+  @property({ type: String }) dateFrom?: string;
 
   /**
    * Date to. Format is Unix timestamp.
    */
-  @property({type: String}) dateTo?: string;
+  @property({ type: String }) dateTo?: string;
 
   /**
    * Array of disabled days. Format is Unix timestamp.
    */
-  @property({type: Array}) disabledDays: Array<string> = [];
+  @property({ type: Array }) disabledDays: Array<string> = [];
 
   /**
    * Force display of only one month.
    */
-  @property({type: Boolean}) enableYearChange = false;
+  @property({ type: Boolean }) enableYearChange = false;
 
   /**
    * Force display of only one month.
    */
-  @property({type: Boolean}) forceNarrow = false;
+  @property({ type: Boolean }) forceNarrow = false;
 
   /**
    * Current hovered date. Format is Unix timestamp.
    */
-  @property({type: String}) hoveredDate?: string;
+  @property({ type: String }) hoveredDate?: string;
 
   /**
    * Set locale of the calendar.
    */
-  @property({type: Object}) locale?: Locale;
+  @property({ type: Object }) locale?: Locale;
 
   /**
    * Max date. Format is Unix timestamp
    */
-  @property({type: String}) max?: string;
+  @property({ type: String }) max?: string;
 
   /**
    * Minimal date. Format is Unix timestamp
    */
-  @property({type: String}) min?: string;
+  @property({ type: String }) min?: string;
 
   /**
    * Set month.
    */
-  @property({type: Number}) month: number;
+  @property({ type: Number }) month: number;
 
   /**
    * If true, only one month is displayed.
    */
-  @property({type: Boolean}) narrow = false;
+  @property({ type: Boolean }) narrow = false;
 
   /**
    * If true only one date can be selected.
    */
-  @property({type: Boolean}) noRange = false;
+  @property({ type: Boolean }) noRange = false;
 
   /**
    * Set year.
    * Default is current year.
    */
-  @property({type: Number}) year : number;
+  @property({ type: Number }) year: number;
 
   /**
    * Set default date.
    * Default is current year.
    */
-  @property({type: String}) defaultAs: String = 'today';
+  @property({ type: String }) defaultAs: String = 'today';
 
-  @property({type: Number}) monthPlus?: number;
-  @property({type: Number}) yearPlus?: number;
+  @property({ type: Number }) monthPlus?: number;
+  @property({ type: Number }) yearPlus?: number;
 
   constructor() {
     super();
@@ -176,7 +176,7 @@ export class RangeDatepicker extends LitElement {
 
   firstUpdated() {
     const mql = window.matchMedia('(max-width: 650px)');
-    mql.addListener( (mql) => this.queryMatchesChanged(mql));
+    mql.addListener((mql) => this.queryMatchesChanged(mql));
     this.queryMatchesChanged(mql);
   }
 

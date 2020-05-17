@@ -1,6 +1,6 @@
 import { LitElement, html, css, property } from 'lit-element';
-import startOfDay from 'date-fns/esm/startOfDay';
-import getTime from 'date-fns/esm/getTime';
+import startOfDay from 'date-fns/startOfDay';
+import getTime from 'date-fns/getTime';
 
 class RangeDatepickerCell extends LitElement {
   static styles = css`

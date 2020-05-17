@@ -122,36 +122,36 @@ export class RangeDatepickerCalendar extends LitElement {
   /**
    * Date from. Format is Unix timestamp.
    */
-  @property({type: String}) dateFrom?: string;
+  @property({ type: String }) dateFrom?: string;
 
   /**
    * Date to. Format is Unix timestamp.
    */
-  @property({type: String}) dateTo?: string;
+  @property({ type: String }) dateTo?: string;
 
-  @property({type: String}) hoveredDate?: string;
+  @property({ type: String }) hoveredDate?: string;
 
-  @property({type: String}) day?: string;
+  @property({ type: String }) day?: string;
 
-  @property({type: Boolean}) enableMonthChange: boolean = true;
-  @property({type: Boolean}) enableYearChange: boolean = false;
-  @property({type: String}) month: string = '01';
-  @property({type: Boolean}) narrow: boolean = false;
-  @property({type: Boolean}) noRange: boolean = false;
-  @property({type: Boolean}) next: boolean = false;
-  @property({type: Boolean}) prev: boolean = false;
-  @property({type: Boolean}) displayGoToday: boolean = false;
-  @property({type: String}) year: number = 2020;
-  @property({type: Array}) yearsList: Array<number> = [];
-  @property({type: Array}) monthsList: Array<string> = [];
-  @property({type: Array}) disabledDays: Array<string> = [];
-  @property({type: Array}) dayNamesOfTheWeek: Array<string> = [];
-  @property({type: Array}) daysOfMonth: Array<any> = [];
-  @property({type: String}) defaultAs: string = 'today';
+  @property({ type: Boolean }) enableMonthChange: boolean = true;
+  @property({ type: Boolean }) enableYearChange: boolean = false;
+  @property({ type: String }) month: string = '01';
+  @property({ type: Boolean }) narrow: boolean = false;
+  @property({ type: Boolean }) noRange: boolean = false;
+  @property({ type: Boolean }) next: boolean = false;
+  @property({ type: Boolean }) prev: boolean = false;
+  @property({ type: Boolean }) displayGoToday: boolean = false;
+  @property({ type: String }) year: number = 2020;
+  @property({ type: Array }) yearsList: Array<number> = [];
+  @property({ type: Array }) monthsList: Array<string> = [];
+  @property({ type: Array }) disabledDays: Array<string> = [];
+  @property({ type: Array }) dayNamesOfTheWeek: Array<string> = [];
+  @property({ type: Array }) daysOfMonth: Array<any> = [];
+  @property({ type: String }) defaultAs: string = 'today';
 
-  @property({type: Object})
+  @property({ type: Object })
   public get locale(): Locale {
-    return this._locale ? this._locale: enUS;
+    return this._locale ? this._locale : enUS;
   }
   public set locale(value: Locale) {
     const oldValue = this._locale;
@@ -162,12 +162,12 @@ export class RangeDatepickerCalendar extends LitElement {
   /**
    * Max date. Format is Unix timestamp
    */
-  @property({type: String}) max: string = '';
+  @property({ type: String }) max: string = '';
 
   /**
    * Minimal date. Format is Unix timestamp
    */
-  @property({type: String}) min: string = '';
+  @property({ type: String }) min: string = '';
 
   _locale?: Object;
   currentDate: number;
@@ -211,14 +211,14 @@ export class RangeDatepickerCalendar extends LitElement {
 
   renderPrevButton() {
     if (this.prev || this.narrow || this.enableYearChange) {
-     return html`<mwc-icon-button icon="chevron_left" @click="${this.handlePrevMonth}"></mwc-icon-button>`;
+      return html`<mwc-icon-button icon="chevron_left" @click="${this.handlePrevMonth}"></mwc-icon-button>`;
     }
     return null;
   }
 
   renderNextButton() {
     if (this.next || this.narrow || this.enableYearChange) {
-     return html`<mwc-icon-button icon="chevron_right" @click="${this.handleNextMonth}"></mwc-icon-button>`;
+      return html`<mwc-icon-button icon="chevron_right" @click="${this.handleNextMonth}"></mwc-icon-button>`;
     }
     return null;
   }
@@ -325,14 +325,14 @@ export class RangeDatepickerCalendar extends LitElement {
       let monthMinus = month;
       monthMinus = monthMinus.substring(monthMinus.length - 2);
       let startDateString = `01/${monthMinus}/${year}`;
-      let startDateFn = parse(startDateString, 'dd/MM/yyyy', new Date() );
+      let startDateFn = parse(startDateString, 'dd/MM/yyyy', new Date());
       const endDateFn = endOfMonth(startDateFn);
       const endDateString = format(endDateFn, 'dd/MM/yyyy');
 
       const firstDayOfWeek = this.locale.options!.weekStartsOn ? this.locale.options!.weekStartsOn : 0;
 
-      const rows:any = [];
-      let columns:any = [];
+      const rows: any = [];
+      let columns: any = [];
 
       const lastDayOfWeek = 6;
 
@@ -411,7 +411,7 @@ export class RangeDatepickerCalendar extends LitElement {
 
   handleOpenYearSelection() {
     const menu = this.shadowRoot?.querySelector('.year-change') as any;
-    const item = menu.items.find( (item: any) => item.value === this.year );
+    const item = menu.items.find((item: any) => item.value === this.year);
     menu.select(item);
     menu?.show();
   }
@@ -467,7 +467,8 @@ export class RangeDatepickerCalendar extends LitElement {
           monthName?.classList.remove('withTransition');
         }, 100);
       }, 100);
-    }, 100);  }
+    }, 100);
+  }
 
   handlePrevMonth() {
     const tbody = this.shadowRoot?.querySelector('.tbody');
