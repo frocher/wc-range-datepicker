@@ -1,6 +1,7 @@
-import { LitElement, html, css, property } from 'lit-element';
+import { LitElement, html, css, property, PropertyValues } from 'lit-element';
 import startOfDay from 'date-fns/startOfDay';
 import getTime from 'date-fns/getTime';
+import { Day } from './day';
 
 class RangeDatepickerCell extends LitElement {
   static styles = css`
@@ -55,18 +56,19 @@ class RangeDatepickerCell extends LitElement {
       opacity: 0.4;
     }`;
 
-  @property({type: Object}) day: any;
+  @property({type: Object}) day: Day | null = null;
   @property({type: Boolean}) selected: boolean = false;
   @property({type: Boolean}) hovered: boolean = false;
   @property({type: String}) dateTo: string|null = null;
   @property({type: String}) dateFrom: string|null = null;
   @property({type: String}) month: string|null = null;
-  @property({type: String}) hoveredDate: string|null = null;
   @property({type: Number}) min: number|null = null;
   @property({type: Number}) max: number|null = null;
   @property({type: Boolean}) disabled: boolean = false;
-  @property({type: Boolean}) isCurrentDate: boolean = false;
   @property({type: Array}) disabledDays: Array<string> = [];
+
+  @property({type: String}) protected hoveredDate: number|null = null;
+  @property({type: Boolean}) protected isCurrentDate: boolean = false;
 
   render() {
     return html`
@@ -81,13 +83,13 @@ class RangeDatepickerCell extends LitElement {
     `;
   }
 
-  updated(properties: Map<string, any>) {
+  updated(properties: PropertyValues) {
     if (properties.has('dateFrom') || properties.has('dateTo') || properties.has('hoveredDate') || properties.has('day')) {
-      this.dateChanged(this.dateFrom!, this.dateTo!, this.hoveredDate!, this.day);
+      this.dateChanged(this.dateFrom!, this.dateTo!, this.hoveredDate!, this.day!);
     }
   }
 
-  dateChanged(dateFrom: string, dateTo: string, hoveredDate: string, day: any) {
+  dateChanged(dateFrom: string, dateTo: string, hoveredDate: number, day: Day) {
     this.selected = false;
     this.hovered = false;
     const parsedDateFrom = parseInt(dateFrom, 10);
@@ -115,14 +117,14 @@ class RangeDatepickerCell extends LitElement {
   handleTap() {
     if (!this.disabled) {
       this.dispatchEvent(new CustomEvent('date-is-selected', {
-        detail: { date: this.day.date },
+        detail: { date: this.day?.date },
       }));
     }
   }
 
   handleHover() {
     this.dispatchEvent(new CustomEvent('date-is-hovered', {
-      detail: { date: this.day.date },
+      detail: { date: this.day?.date },
     }));
   }
 
@@ -134,7 +136,7 @@ class RangeDatepickerCell extends LitElement {
     return hovered ? 'hovered' : '';
   }
 
-  isEnabled(day: any, min: number, max: number, disabledDays: Array<string>) {
+  isEnabled(day: Day | null, min: number, max: number, disabledDays: Array<string>) {
     this.disabled = false;
 
     if (disabledDays && day && day.date) {

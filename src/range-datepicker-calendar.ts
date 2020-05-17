@@ -1,10 +1,13 @@
-import { html, css, LitElement, property } from 'lit-element';
+import { html, css, LitElement, property, PropertyValues } from 'lit-element';
 import '@material/mwc-icon-button';
 import '@material/mwc-menu';
 import '@material/mwc-list/mwc-list-item';
 import { addDays, addMonths, addYears, endOfMonth, format, getDay, parse, startOfDay, subMonths, subYears } from 'date-fns';
 import { enUS } from 'date-fns/locale';
+import { ListItem } from '@material/mwc-list/mwc-list-item';
+import { Menu } from '@material/mwc-menu';
 import './range-date-picker-cell';
+import { Day } from './day';
 
 
 export class RangeDatepickerCalendar extends LitElement {
@@ -121,32 +124,23 @@ export class RangeDatepickerCalendar extends LitElement {
   /**
    * Date from. Format is Unix timestamp.
    */
-  @property({ type: String }) dateFrom?: string;
+  @property({ type: String }) dateFrom: string | null = null;
 
   /**
    * Date to. Format is Unix timestamp.
    */
-  @property({ type: String }) dateTo: string|null = null;
+  @property({ type: String }) dateTo: string | null = null;
 
-  @property({ type: String }) hoveredDate: string|null = null;
+  @property({ type: String }) hoveredDate: string | null = null;
 
-  @property({ type: String }) day: string|null = null;
-
-  @property({ type: Boolean }) enableMonthChange: boolean = true;
   @property({ type: Boolean }) enableYearChange: boolean = false;
   @property({ type: String }) month: string = '01';
   @property({ type: Boolean }) narrow: boolean = false;
   @property({ type: Boolean }) noRange: boolean = false;
   @property({ type: Boolean }) next: boolean = false;
   @property({ type: Boolean }) prev: boolean = false;
-  @property({ type: Boolean }) displayGoToday: boolean = false;
   @property({ type: String }) year: number = 2020;
-  @property({ type: Array }) yearsList: Array<number> = [];
-  @property({ type: Array }) monthsList: Array<string> = [];
   @property({ type: Array }) disabledDays: Array<string> = [];
-  @property({ type: Array }) dayNamesOfTheWeek: Array<string> = [];
-  @property({ type: Array }) daysOfMonth: Array<any> = [];
-  @property({ type: String }) defaultAs: string = 'today';
 
   @property({ type: Object })
   public get locale(): Locale {
@@ -161,15 +155,21 @@ export class RangeDatepickerCalendar extends LitElement {
   /**
    * Max date. Format is Unix timestamp
    */
-  @property({ type: String }) max: string|null = null;
+  @property({ type: String }) max: string | null = null;
 
   /**
    * Minimal date. Format is Unix timestamp
    */
-  @property({ type: String }) min: string|null = null;
+  @property({ type: String }) min: string | null = null;
 
-  _locale?: Object;
-  currentDate: number;
+
+  @property({ type: Array }) protected yearsList: Array<number> = [];
+  @property({ type: Array }) protected monthsList: Array<string> = [];
+  @property({ type: Array }) protected dayNamesOfTheWeek: Array<string> = [];
+  @property({ type: Array }) protected daysOfMonth: Array<Array<Day | null>> = [];
+
+  protected _locale?: Object;
+  protected currentDate: number;
 
   constructor() {
     super();
@@ -238,7 +238,7 @@ export class RangeDatepickerCalendar extends LitElement {
     return html`${this.year}`;
   }
 
-  renderYearItem(item: any) {
+  renderYearItem(item: number) {
     return html`
       <mwc-list-item value="${item}">${item}</mwc-list-item>
     `;
@@ -248,16 +248,16 @@ export class RangeDatepickerCalendar extends LitElement {
     return html`<div class="th">${dayOfWeek}</div>`;
   }
 
-  renderWeek(week: any) {
+  renderWeek(week: Array<Day | null>) {
     return html`
     <div class="tr">
-      ${week.map((day: any) => this.renderDay(day))}
+      ${week.map((day) => this.renderDay(day))}
     </template>
     </div>
     `;
   }
 
-  renderDay(day: any) {
+  renderDay(day: Day | null) {
     return html`
       <div class="td ${this.tdIsEnabled(day)}">
         ${day ? html`
@@ -285,7 +285,7 @@ export class RangeDatepickerCalendar extends LitElement {
     await this.updateComplete;
   }
 
-  updated(properties: Map<string, any>) {
+  updated(properties: PropertyValues) {
     if (properties.has('locale')) {
       this.localeChanged();
     }
@@ -299,7 +299,7 @@ export class RangeDatepickerCalendar extends LitElement {
     }
   }
 
-  isCurrentDate(day: any) {
+  isCurrentDate(day: Day) {
     const dayDate = day.date;
     return dayDate === this.currentDate;
   }
@@ -330,8 +330,8 @@ export class RangeDatepickerCalendar extends LitElement {
 
       const firstDayOfWeek = this.locale.options!.weekStartsOn ? this.locale.options!.weekStartsOn : 0;
 
-      const rows: any = [];
-      let columns: any = [];
+      const rows: Array<Array<Day | null>> = [];
+      let columns: Array<Day | null> = [];
 
       const lastDayOfWeek = 6;
 
@@ -341,16 +341,12 @@ export class RangeDatepickerCalendar extends LitElement {
           dayNumberFn = 6;
         }
 
-        const columnFn = {
-          hover: false,
-          date: parseInt(format(startDateFn, 't'), 10),
-          title: parseInt(format(startDateFn, 'd'), 10),
-        };
+        const columnFn = new Day(startDateFn);
         columns.push(columnFn);
 
         if (dayNumberFn === lastDayOfWeek) {
-          for (let i = columns.length; i < lastDayOfWeek + 1; i += 1) {
-            columns.unshift(0);
+          for (let i = columns.length; i < lastDayOfWeek + 1; i++) {
+            columns.unshift(null);
           }
           rows.push(columns.slice());
           columns = [];
@@ -360,14 +356,10 @@ export class RangeDatepickerCalendar extends LitElement {
         startDateString = format(startDateFn, 'dd/MM/yyyy');
 
         if (startDateString === endDateString) {
-          const endColumnFn = {
-            hover: false,
-            date: parseInt(format(startDateFn, 't'), 10),
-            title: parseInt(format(startDateFn, 'd'), 10),
-          };
+          const endColumnFn = new Day(startDateFn);
           columns.push(endColumnFn);
-          for (let i = columns.length; i <= lastDayOfWeek; i += 1) {
-            columns.push(0);
+          for (let i = columns.length; i <= lastDayOfWeek; i++) {
+            columns.push(null);
           }
           rows.push(columns.slice());
           columns = [];
@@ -381,11 +373,8 @@ export class RangeDatepickerCalendar extends LitElement {
     return format(new Date(year, parseInt(month, 10) - 1), 'MMMM', { locale: this.locale });
   }
 
-  tdIsEnabled(day: any) {
-    if (day) {
-      return 'enabled';
-    }
-    return '';
+  tdIsEnabled(day: Day | null) {
+    return day ? 'enabled' : '';
   }
 
   handleDateSelected(e: CustomEvent) {
@@ -409,15 +398,16 @@ export class RangeDatepickerCalendar extends LitElement {
   }
 
   handleOpenYearSelection() {
-    const menu = this.shadowRoot?.querySelector('.year-change') as any;
-    const item = menu.items.find((item: any) => item.value === this.year);
-    menu.select(item);
-    menu?.show();
+    const menu = this.shadowRoot?.querySelector('.year-change') as Menu;
+    const index = menu.items.findIndex((item: ListItem) => item.value === this.year.toString());
+    menu.select(index);
+    menu.show();
   }
 
   handleYearSelected() {
-    const menu = this.shadowRoot?.querySelector('.year-change') as any;
-    this.year = menu.selected.value;
+    const menu = this.shadowRoot?.querySelector('.year-change') as Menu;
+    const selected = menu.selected as ListItem;
+    this.year = parseInt(selected?.value);
   }
 
   handleDateHovered(e: CustomEvent) {

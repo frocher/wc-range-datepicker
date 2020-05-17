@@ -1,6 +1,7 @@
-import { html, css, LitElement, property } from 'lit-element';
+import { html, css, LitElement, property, PropertyValues } from 'lit-element';
 import './range-datepicker-calendar';
 import { getMonth, getYear, parse } from 'date-fns';
+import { RangeDatepickerCalendar } from './range-datepicker-calendar';
 
 export class RangeDatepicker extends LitElement {
   static styles = css`
@@ -175,18 +176,18 @@ export class RangeDatepicker extends LitElement {
   }
 
   firstUpdated() {
-    const mql = window.matchMedia('(max-width: 650px)');
-    mql.addListener((mql) => this.queryMatchesChanged(mql));
+    const mql: MediaQueryList = window.matchMedia('(max-width: 650px)');
+    mql.addListener((mqlEvent) => this.queryMatchesChanged(mqlEvent));
     this.queryMatchesChanged(mql);
   }
 
-  updated(properties: Map<string, any>) {
+  updated(properties: PropertyValues) {
     if (properties.has('month') || properties.has('year')) {
       this.monthChanged(this.month, this.year);
     }
 
     if (properties.has('noRange')) {
-      this.noRangeChanged(this.noRange, properties.get('noRange'));
+      this.noRangeChanged(this.noRange, properties.get('noRange') as boolean);
     }
 
     if (properties.has('narrow')) {
@@ -202,21 +203,21 @@ export class RangeDatepicker extends LitElement {
     return forceNarrow || narrow;
   }
 
-  queryMatchesChanged(mql: any) {
+  queryMatchesChanged(mql: MediaQueryList|MediaQueryListEvent) {
     this.narrow = mql.matches;
     this.requestUpdate();
   }
 
   handlePrevMonth() {
     if (!this.enableYearChange) {
-      const calendar = this.shadowRoot?.querySelector('range-datepicker-calendar[next]') as any;
+      const calendar = this.shadowRoot?.querySelector('range-datepicker-calendar[next]') as RangeDatepickerCalendar;
       calendar?.handlePrevMonth();
     }
   }
 
   handleNextMonth() {
     if (!this.enableYearChange) {
-      const calendar = this.shadowRoot?.querySelector('range-datepicker-calendar[prev]') as any;
+      const calendar = this.shadowRoot?.querySelector('range-datepicker-calendar[prev]') as RangeDatepickerCalendar;
       calendar?.handleNextMonth();
     }
   }
