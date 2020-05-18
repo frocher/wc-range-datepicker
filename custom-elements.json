@@ -3,7 +3,7 @@
   "tags": [
     {
       "name": "wc-range-datepicker",
-      "description": "A component with a title and an action counter",
+      "description": "A datepicker",
       "properties": [
         {
           "name": "title",
