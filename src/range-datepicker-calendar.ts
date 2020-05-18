@@ -1,3 +1,4 @@
+/* eslint-disable import/no-duplicates */
 import { html, css, LitElement, property, PropertyValues } from 'lit-element';
 import '@material/mwc-icon-button';
 import '@material/mwc-menu';
@@ -6,8 +7,8 @@ import { addDays, addMonths, addYears, endOfMonth, format, getDay, parse, startO
 import { enUS } from 'date-fns/locale';
 import { ListItem } from '@material/mwc-list/mwc-list-item';
 import { Menu } from '@material/mwc-menu';
-import './range-date-picker-cell';
-import { Day } from './day';
+import './range-date-picker-cell.js';
+import { Day } from './day.js';
 
 
 export class RangeDatepickerCalendar extends LitElement {
@@ -133,13 +134,13 @@ export class RangeDatepickerCalendar extends LitElement {
 
   @property({ type: String }) hoveredDate: string | null = null;
 
-  @property({ type: Boolean }) enableYearChange: boolean = false;
-  @property({ type: String }) month: string = '01';
-  @property({ type: Boolean }) narrow: boolean = false;
-  @property({ type: Boolean }) noRange: boolean = false;
-  @property({ type: Boolean }) next: boolean = false;
-  @property({ type: Boolean }) prev: boolean = false;
-  @property({ type: String }) year: number = 2020;
+  @property({ type: Boolean }) enableYearChange = false;
+  @property({ type: String }) month = '01';
+  @property({ type: Boolean }) narrow = false;
+  @property({ type: Boolean }) noRange = false;
+  @property({ type: Boolean }) next = false;
+  @property({ type: Boolean }) prev = false;
+  @property({ type: String }) year = 2020;
   @property({ type: Array }) disabledDays: Array<string> = [];
 
   @property({ type: Object })
@@ -168,7 +169,7 @@ export class RangeDatepickerCalendar extends LitElement {
   @property({ type: Array }) protected dayNamesOfTheWeek: Array<string> = [];
   @property({ type: Array }) protected daysOfMonth: Array<Array<Day | null>> = [];
 
-  protected _locale?: Object;
+  protected _locale: Locale | null = null;
   protected currentDate: number;
 
   constructor() {

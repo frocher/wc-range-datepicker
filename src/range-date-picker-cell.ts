@@ -1,7 +1,7 @@
 import { LitElement, html, css, property, PropertyValues } from 'lit-element';
 import startOfDay from 'date-fns/startOfDay';
 import getTime from 'date-fns/getTime';
-import { Day } from './day';
+import { Day } from './day.js';
 
 class RangeDatepickerCell extends LitElement {
   static styles = css`
@@ -57,18 +57,18 @@ class RangeDatepickerCell extends LitElement {
     }`;
 
   @property({type: Object}) day: Day | null = null;
-  @property({type: Boolean}) selected: boolean = false;
-  @property({type: Boolean}) hovered: boolean = false;
+  @property({type: Boolean}) selected = false;
+  @property({type: Boolean}) hovered = false;
   @property({type: String}) dateTo: string|null = null;
   @property({type: String}) dateFrom: string|null = null;
   @property({type: String}) month: string|null = null;
   @property({type: Number}) min: number|null = null;
   @property({type: Number}) max: number|null = null;
-  @property({type: Boolean}) disabled: boolean = false;
+  @property({type: Boolean}) disabled = false;
   @property({type: Array}) disabledDays: Array<string> = [];
 
   @property({type: String}) protected hoveredDate: number|null = null;
-  @property({type: Boolean}) protected isCurrentDate: boolean = false;
+  @property({type: Boolean}) protected isCurrentDate = false;
 
   render() {
     return html`

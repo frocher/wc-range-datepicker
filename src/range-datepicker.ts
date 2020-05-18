@@ -1,7 +1,8 @@
+/* eslint-disable import/no-duplicates */
 import { html, css, LitElement, property, PropertyValues } from 'lit-element';
-import './range-datepicker-calendar';
 import { getMonth, getYear, parse } from 'date-fns';
-import { RangeDatepickerCalendar } from './range-datepicker-calendar';
+import './range-datepicker-calendar.js';
+import { RangeDatepickerCalendar } from './range-datepicker-calendar.js';
 
 export class RangeDatepicker extends LitElement {
   static styles = css`
@@ -9,12 +10,12 @@ export class RangeDatepicker extends LitElement {
     display: block;
     position: relative;
     }
-    
+
     #container {
     display: flex;
     flex-direction: row;
     }
-    
+
     #firstDatePicker {
     margin-right: 16px;
     };
@@ -90,14 +91,14 @@ export class RangeDatepicker extends LitElement {
    * Set default date.
    * Default is current year.
    */
-  @property({ type: String }) defaultAs: String = 'today';
+  @property({ type: String }) defaultAs = 'today';
 
   @property({ type: Number }) protected monthPlus: number|null = null;
   @property({ type: Number }) protected yearPlus: number|null = null;
 
   constructor() {
     super();
-    let now = new Date();
+    const now = new Date();
     this.month = getMonth(now);
     this.year = getYear(now);
     this.monthChanged(this.month, this.year);
@@ -120,7 +121,7 @@ export class RangeDatepicker extends LitElement {
         ?noRange="${this.noRange}"
         .hoveredDate="${this.hoveredDate}"
         .dateTo="${this.dateTo}"
-        .dateFrom="${this.dateFrom}" 
+        .dateFrom="${this.dateFrom}"
         .locale="${this.locale}"
         month="${this.month}"
         year="${this.year}"
@@ -138,7 +139,7 @@ export class RangeDatepicker extends LitElement {
         ?noRange="${this.noRange}"
         .hoveredDate="${this.hoveredDate}"
         .dateTo="${this.dateTo}"
-        .dateFrom="${this.dateFrom}" 
+        .dateFrom="${this.dateFrom}"
         .locale="${this.locale}"
         month="${this.monthPlus}"
         year="${this.yearPlus}"
@@ -162,7 +163,7 @@ export class RangeDatepicker extends LitElement {
         ?narrow="${this.isNarrow(this.forceNarrow, this.narrow)}"
         .hoveredDate="${this.hoveredDate}"
         .dateTo="${this.dateTo}"
-        .dateFrom="${this.dateFrom}" 
+        .dateFrom="${this.dateFrom}"
         .locale="${this.locale}"
         ?prev="${true}"
         ?next="${true}"
@@ -248,10 +249,10 @@ export class RangeDatepicker extends LitElement {
     if (!this.month) {
       switch (this.defaultAs) {
         case 'dateFrom':
-          this.month = this.dateFrom ? getMonth(parse(this.dateFrom, 't', new Date())) + 1 : getMonth(new Date());;
+          this.month = this.dateFrom ? getMonth(parse(this.dateFrom, 't', new Date())) + 1 : getMonth(new Date());
           break;
         case 'dateTo':
-          this.month = this.dateTo ? getMonth(parse(this.dateTo, 't', new Date())) + 1 : getMonth(new Date());;
+          this.month = this.dateTo ? getMonth(parse(this.dateTo, 't', new Date())) + 1 : getMonth(new Date());
           break;
         default:
           this.month = getMonth(new Date());
