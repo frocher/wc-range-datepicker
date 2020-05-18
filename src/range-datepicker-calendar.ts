@@ -3,123 +3,133 @@ import { html, css, LitElement, property, PropertyValues } from 'lit-element';
 import '@material/mwc-icon-button';
 import '@material/mwc-menu';
 import '@material/mwc-list/mwc-list-item';
-import { addDays, addMonths, addYears, endOfMonth, format, getDay, parse, startOfDay, subMonths, subYears } from 'date-fns';
+import {
+  addDays,
+  addMonths,
+  addYears,
+  endOfMonth,
+  format,
+  getDay,
+  parse,
+  startOfDay,
+  subMonths,
+  subYears,
+} from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import { ListItem } from '@material/mwc-list/mwc-list-item';
 import { Menu } from '@material/mwc-menu';
 import './range-date-picker-cell.js';
 import { Day } from './day.js';
 
-
 export class RangeDatepickerCalendar extends LitElement {
   static styles = css`
-  :host {
-    display: block;
-    width: 266px;
-  }
+    :host {
+      display: block;
+      width: 266px;
+    }
 
-  :host>div {
-    overflow: hidden;
-  }
+    :host > div {
+      overflow: hidden;
+    }
 
-  div.table {
-    display: table;
-    border-collapse: collapse;
-    table-layout: fixed;
-  }
+    div.table {
+      display: table;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
 
-  div.th {
-    display: table-cell;
-    color: var(--range-datepicker-day-names-text, rgb(117, 117, 117));
-    font-size: 11px;
-    width: 38px;
-    padding: 0;
-    margin: 0;
-    text-align: center;
-  }
+    div.th {
+      display: table-cell;
+      color: var(--range-datepicker-day-names-text, rgb(117, 117, 117));
+      font-size: 11px;
+      width: 38px;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
 
-  div.tr {
-    display: table-row;
-    height: 38px;
-  }
+    div.tr {
+      display: table-row;
+      height: 38px;
+    }
 
-  div.td {
-    display: table-cell;
-    padding: 0;
-    width: 38px;
-    margin: 0;
-    height: 38px;
-  }
+    div.td {
+      display: table-cell;
+      padding: 0;
+      width: 38px;
+      margin: 0;
+      height: 38px;
+    }
 
-  .header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 266px;
-    margin: 10px 0;
-    text-align: center;
-    color: var(--range-datepicker-month-text);
-  }
+    .header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: 266px;
+      margin: 10px 0;
+      text-align: center;
+      color: var(--range-datepicker-month-text);
+    }
 
-  .headerTitle {
-    display:flex;
-    flex: 1;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-  }
+    .headerTitle {
+      display: flex;
+      flex: 1;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
 
-  .header mwc-icon-button {
-    padding: 0;
-    --mdc-icon-size: 30px;
-  }
+    .header mwc-icon-button {
+      padding: 0;
+      --mdc-icon-size: 30px;
+    }
 
-  .header::first-letter {
-    text-transform: uppercase;
-  }
+    .header::first-letter {
+      text-transform: uppercase;
+    }
 
-  .header > div > div {
-    margin-right: 8px;
-  }
+    .header > div > div {
+      margin-right: 8px;
+    }
 
-  mwc-list {
-    max-height: 200px;
-  }
+    mwc-list {
+      max-height: 200px;
+    }
 
-  div.tbody {
-    transition: all 0ms;
-    transform: translateX(0);
-    height: 235px;
-  }
+    div.tbody {
+      transition: all 0ms;
+      transform: translateX(0);
+      height: 235px;
+    }
 
-  .withTransition {
-    transition: all 100ms;
-  }
+    .withTransition {
+      transition: all 100ms;
+    }
 
-  .moveToLeft {
-    transform: translateX(-274px);
-  }
+    .moveToLeft {
+      transform: translateX(-274px);
+    }
 
-  .moveToRight {
-    transform: translateX(274px);
-  }
+    .moveToRight {
+      transform: translateX(274px);
+    }
 
-  .withTransition td,
-  .moveToLeft td,
-  .moveToRight td {
-    border: none;
-  }
+    .withTransition td,
+    .moveToLeft td,
+    .moveToRight td {
+      border: none;
+    }
 
-  .year-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
+    .year-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
 
-  .year-change {
-    max-height: 200px;
-  }
+    .year-change {
+      max-height: 200px;
+    }
   `;
 
   /**
@@ -163,11 +173,12 @@ export class RangeDatepickerCalendar extends LitElement {
    */
   @property({ type: String }) min: string | null = null;
 
-
   @property({ type: Array }) protected yearsList: Array<number> = [];
   @property({ type: Array }) protected monthsList: Array<string> = [];
   @property({ type: Array }) protected dayNamesOfTheWeek: Array<string> = [];
-  @property({ type: Array }) protected daysOfMonth: Array<Array<Day | null>> = [];
+  @property({ type: Array }) protected daysOfMonth: Array<
+    Array<Day | null>
+  > = [];
 
   protected _locale: Locale | null = null;
   protected currentDate: number;
@@ -181,44 +192,52 @@ export class RangeDatepickerCalendar extends LitElement {
 
   render() {
     return html`
-    <div>
-      <div class="header">
-        ${this.renderPrevButton()}
-        <div class="headerTitle">
-          <div>
-            ${this.computeCurrentMonthName(this.month, this.year)}
+      <div>
+        <div class="header">
+          ${this.renderPrevButton()}
+          <div class="headerTitle">
+            <div>
+              ${this.computeCurrentMonthName(this.month, this.year)}
+            </div>
+            <div>
+              ${this.renderYear()}
+            </div>
           </div>
-          <div>
-            ${this.renderYear()}
-          </div>
+          ${this.renderNextButton()}
         </div>
-        ${this.renderNextButton()}
-      </div>
 
-      <div class="table">
-        <div class="thead">
-          <div class="tr">
-            ${this.dayNamesOfTheWeek?.map((dayNameOfWeek) => this.renderDayOfWeek(dayNameOfWeek))}
+        <div class="table">
+          <div class="thead">
+            <div class="tr">
+              ${this.dayNamesOfTheWeek?.map(dayNameOfWeek =>
+                this.renderDayOfWeek(dayNameOfWeek)
+              )}
+            </div>
+          </div>
+          <div class="tbody">
+            ${this.daysOfMonth?.map(week => this.renderWeek(week))}
           </div>
         </div>
-        <div class="tbody">
-          ${this.daysOfMonth?.map((week) => this.renderWeek(week))}
-        </div>
       </div>
-    </div>
     `;
   }
 
   renderPrevButton() {
     if (this.prev || this.narrow || this.enableYearChange) {
-      return html`<mwc-icon-button icon="chevron_left" @click="${this.handlePrevMonth}"></mwc-icon-button>`;
+      return html`<mwc-icon-button
+        icon="chevron_left"
+        @click="${this.handlePrevMonth}"
+      ></mwc-icon-button>`;
     }
     return null;
   }
 
   renderNextButton() {
     if (this.next || this.narrow || this.enableYearChange) {
-      return html`<mwc-icon-button icon="chevron_right" @click="${this.handleNextMonth}"></mwc-icon-button>`;
+      return html`<mwc-icon-button
+        icon="chevron_right"
+        @click="${this.handleNextMonth}"
+      ></mwc-icon-button>`;
     }
     return null;
   }
@@ -228,7 +247,9 @@ export class RangeDatepickerCalendar extends LitElement {
       return html`
         <div class="year-container">
           ${this.year}
-          <mwc-icon-button icon="arrow_drop_down" @click="${this.handleOpenYearSelection}"></mwc-icon-button>
+          <mwc-icon-button icon="arrow_drop_down" @click="${
+            this.handleOpenYearSelection
+          }"></mwc-icon-button>
           <mwc-menu class="year-change" @selected="${this.handleYearSelected}">
           ${this.yearsList.map(i => this.renderYearItem(i))}
           </mwc-men>
@@ -240,9 +261,7 @@ export class RangeDatepickerCalendar extends LitElement {
   }
 
   renderYearItem(item: number) {
-    return html`
-      <mwc-list-item value="${item}">${item}</mwc-list-item>
-    `;
+    return html` <mwc-list-item value="${item}">${item}</mwc-list-item> `;
   }
 
   renderDayOfWeek(dayOfWeek: string) {
@@ -252,7 +271,7 @@ export class RangeDatepickerCalendar extends LitElement {
   renderWeek(week: Array<Day | null>) {
     return html`
     <div class="tr">
-      ${week.map((day) => this.renderDay(day))}
+      ${week.map(day => this.renderDay(day))}
     </template>
     </div>
     `;
@@ -261,28 +280,46 @@ export class RangeDatepickerCalendar extends LitElement {
   renderDay(day: Day | null) {
     return html`
       <div class="td ${this.tdIsEnabled(day)}">
-        ${day ? html`
-          <range-datepicker-cell
-            .disabledDays="${this.disabledDays}"
-            .min="${this.min}"
-            .max="${this.max}"
-            .month="${this.month}"
-            .hoveredDate="${this.hoveredDate}"
-            .dateTo="${this.dateTo}"
-            .dateFrom="${this.dateFrom}"
-            .day="${day}"
-            ?isCurrentDate="${this.isCurrentDate(day)}"
-            @date-is-selected="${this.handleDateSelected}"
-            @date-is-hovered="${this.handleDateHovered}">
-          </range-datepicker-cell>
-        ` : null}
+        ${day
+          ? html`
+              <range-datepicker-cell
+                .disabledDays="${this.disabledDays}"
+                .min="${this.min}"
+                .max="${this.max}"
+                .month="${this.month}"
+                .hoveredDate="${this.hoveredDate}"
+                .dateTo="${this.dateTo}"
+                .dateFrom="${this.dateFrom}"
+                .day="${day}"
+                ?isCurrentDate="${this.isCurrentDate(day)}"
+                @date-is-selected="${this.handleDateSelected}"
+                @date-is-hovered="${this.handleDateHovered}"
+              >
+              </range-datepicker-cell>
+            `
+          : null}
       </div>
     `;
   }
 
   async firstUpdated() {
-    this.monthsList = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-    setTimeout(() => { this.setYears(1930, 2100); });
+    this.monthsList = [
+      '01',
+      '02',
+      '03',
+      '04',
+      '05',
+      '06',
+      '07',
+      '08',
+      '09',
+      '10',
+      '11',
+      '12',
+    ];
+    setTimeout(() => {
+      this.setYears(1930, 2100);
+    });
     await this.updateComplete;
   }
 
@@ -292,7 +329,9 @@ export class RangeDatepickerCalendar extends LitElement {
     }
 
     if (properties.has('year')) {
-      this.dispatchEvent(new CustomEvent('year-changed', { detail: { value: this.year } }));
+      this.dispatchEvent(
+        new CustomEvent('year-changed', { detail: { value: this.year } })
+      );
     }
 
     if (properties.has('year') || properties.has('month')) {
@@ -311,7 +350,9 @@ export class RangeDatepickerCalendar extends LitElement {
       dayNamesOfTheWeek.push(this.locale.localize!.day(i, { width: 'short' }));
     }
 
-    const firstDayOfWeek: number = this.locale.options!.weekStartsOn ? this.locale.options!.weekStartsOn : 0;
+    const firstDayOfWeek: number = this.locale.options!.weekStartsOn
+      ? this.locale.options!.weekStartsOn
+      : 0;
     const tmp = dayNamesOfTheWeek.slice().splice(0, firstDayOfWeek);
     const newDayNamesOfTheWeek = dayNamesOfTheWeek
       .slice()
@@ -329,7 +370,9 @@ export class RangeDatepickerCalendar extends LitElement {
       const endDateFn = endOfMonth(startDateFn);
       const endDateString = format(endDateFn, 'dd/MM/yyyy');
 
-      const firstDayOfWeek = this.locale.options!.weekStartsOn ? this.locale.options!.weekStartsOn : 0;
+      const firstDayOfWeek = this.locale.options!.weekStartsOn
+        ? this.locale.options!.weekStartsOn
+        : 0;
 
       const rows: Array<Array<Day | null>> = [];
       let columns: Array<Day | null> = [];
@@ -371,7 +414,9 @@ export class RangeDatepickerCalendar extends LitElement {
   }
 
   computeCurrentMonthName(month: string, year: number) {
-    return format(new Date(year, parseInt(month, 10) - 1), 'MMMM', { locale: this.locale });
+    return format(new Date(year, parseInt(month, 10) - 1), 'MMMM', {
+      locale: this.locale,
+    });
   }
 
   tdIsEnabled(day: Day | null) {
@@ -394,13 +439,19 @@ export class RangeDatepickerCalendar extends LitElement {
     } else {
       this.dateFrom = date;
     }
-    this.dispatchEvent(new CustomEvent('date-from-changed', { detail: { value: this.dateFrom } }));
-    this.dispatchEvent(new CustomEvent('date-to-changed', { detail: { value: this.dateTo } }));
+    this.dispatchEvent(
+      new CustomEvent('date-from-changed', { detail: { value: this.dateFrom } })
+    );
+    this.dispatchEvent(
+      new CustomEvent('date-to-changed', { detail: { value: this.dateTo } })
+    );
   }
 
   handleOpenYearSelection() {
     const menu = this.shadowRoot?.querySelector('.year-change') as Menu;
-    const index = menu.items.findIndex((item: ListItem) => item.value === this.year.toString());
+    const index = menu.items.findIndex(
+      (item: ListItem) => item.value === this.year.toString()
+    );
     menu.select(index);
     menu.show();
   }
@@ -414,7 +465,11 @@ export class RangeDatepickerCalendar extends LitElement {
   handleDateHovered(e: CustomEvent) {
     if (!this.noRange) {
       this.hoveredDate = e.detail.date;
-      this.dispatchEvent(new CustomEvent('hovered-date-changed', { detail: { value: this.hoveredDate } }));
+      this.dispatchEvent(
+        new CustomEvent('hovered-date-changed', {
+          detail: { value: this.hoveredDate },
+        })
+      );
     }
   }
 
@@ -428,13 +483,17 @@ export class RangeDatepickerCalendar extends LitElement {
 
     const month = parse(this.month, 'MM', new Date());
     const monthPlusDate = addMonths(month, 1);
-    const monthPlusString = format(monthPlusDate, 'MM', { locale: this.locale });
+    const monthPlusString = format(monthPlusDate, 'MM', {
+      locale: this.locale,
+    });
 
     this.month = monthPlusString;
     if (this.month === '01') {
       const year = parse(this.year.toString(), 'yyyy', new Date());
       const yearPlusDate = addYears(year, 1);
-      const yearPlusString = format(yearPlusDate, 'yyyy', { locale: this.locale });
+      const yearPlusString = format(yearPlusDate, 'yyyy', {
+        locale: this.locale,
+      });
       this.year = parseInt(yearPlusString);
     }
     this.dispatchEvent(new CustomEvent('next-month'));
@@ -470,13 +529,17 @@ export class RangeDatepickerCalendar extends LitElement {
 
     const month = parse(this.month, 'MM', new Date());
     const monthMinusDate = subMonths(month, 1);
-    const monthMinusString = format(monthMinusDate, 'MM', { locale: this.locale });
+    const monthMinusString = format(monthMinusDate, 'MM', {
+      locale: this.locale,
+    });
 
     this.month = monthMinusString;
     if (this.month === '12') {
       const year = parse(this.year.toString(), 'yyyy', new Date());
       const yearMinusDate = subYears(year, 1);
-      const yearMinusString = format(yearMinusDate, 'yyyy', { locale: this.locale });
+      const yearMinusString = format(yearMinusDate, 'yyyy', {
+        locale: this.locale,
+      });
       this.year = parseInt(yearMinusString);
     }
     this.dispatchEvent(new CustomEvent('prev-month'));
@@ -511,4 +574,7 @@ export class RangeDatepickerCalendar extends LitElement {
   }
 }
 
-window.customElements.define('range-datepicker-calendar', RangeDatepickerCalendar);
+window.customElements.define(
+  'range-datepicker-calendar',
+  RangeDatepickerCalendar
+);
