@@ -191,4 +191,4 @@ class RangeDatepickerCell extends LitElement {
   }
 }
 
-window.customElements.define('range-datepicker-cell', RangeDatepickerCell);
+window.customElements.define('wc-range-datepicker-cell', RangeDatepickerCell);

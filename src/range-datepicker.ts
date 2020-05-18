@@ -113,7 +113,7 @@ export class RangeDatepicker extends LitElement {
   renderNormal() {
     return html`
       <div id="container">
-        <range-datepicker-calendar
+        <wc-range-datepicker-calendar
           id="firstDatePicker"
           .disabledDays="${this.disabledDays}"
           min="${this.min}"
@@ -132,8 +132,8 @@ export class RangeDatepicker extends LitElement {
           @date-from-changed="${this.dateFromChanged}"
           @date-to-changed="${this.dateToChanged}"
         >
-        </range-datepicker-calendar>
-        <range-datepicker-calendar
+        </wc-range-datepicker-calendar>
+        <wc-range-datepicker-calendar
           .disabledDays="${this.disabledDays}"
           min="${this.min}"
           max="${this.max}"
@@ -151,14 +151,14 @@ export class RangeDatepicker extends LitElement {
           @date-from-changed="${this.dateFromChanged}"
           @date-to-changed="${this.dateToChanged}"
         >
-        </range-datepicker-calendar>
+        </wc-range-datepicker-calendar>
       </div>
     `;
   }
 
   renderNarrow() {
     return html`
-      <range-datepicker-calendar
+      <wc-range-datepicker-calendar
         .disabledDays="${this.disabledDays}"
         min="${this.min}"
         max="${this.max}"
@@ -177,7 +177,7 @@ export class RangeDatepicker extends LitElement {
         @date-from-changed="${this.dateFromChanged}"
         @date-to-changed="${this.dateToChanged}"
       >
-      </range-datepicker-calendar>
+      </wc-range-datepicker-calendar>
     `;
   }
 
@@ -219,7 +219,7 @@ export class RangeDatepicker extends LitElement {
   handlePrevMonth() {
     if (!this.enableYearChange) {
       const calendar = this.shadowRoot?.querySelector(
-        'range-datepicker-calendar[next]'
+        'wc-range-datepicker-calendar[next]'
       ) as RangeDatepickerCalendar;
       calendar?.handlePrevMonth();
     }
@@ -228,7 +228,7 @@ export class RangeDatepicker extends LitElement {
   handleNextMonth() {
     if (!this.enableYearChange) {
       const calendar = this.shadowRoot?.querySelector(
-        'range-datepicker-calendar[prev]'
+        'wc-range-datepicker-calendar[prev]'
       ) as RangeDatepickerCalendar;
       calendar?.handleNextMonth();
     }

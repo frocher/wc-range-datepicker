@@ -282,7 +282,7 @@ export class RangeDatepickerCalendar extends LitElement {
       <div class="td ${this.tdIsEnabled(day)}">
         ${day
           ? html`
-              <range-datepicker-cell
+              <wc-range-datepicker-cell
                 .disabledDays="${this.disabledDays}"
                 .min="${this.min}"
                 .max="${this.max}"
@@ -295,7 +295,7 @@ export class RangeDatepickerCalendar extends LitElement {
                 @date-is-selected="${this.handleDateSelected}"
                 @date-is-hovered="${this.handleDateHovered}"
               >
-              </range-datepicker-cell>
+              </wc-range-datepicker-cell>
             `
           : null}
       </div>
@@ -575,6 +575,6 @@ export class RangeDatepickerCalendar extends LitElement {
 }
 
 window.customElements.define(
-  'range-datepicker-calendar',
+  'wc-range-datepicker-calendar',
   RangeDatepickerCalendar
 );
