@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 
 export class Day {
   date: number;
+
   title: number;
 
   constructor(date: Date) {
