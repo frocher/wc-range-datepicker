@@ -2,6 +2,8 @@
 
 This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.
 
+Examples and documentation can be found here : [https://wc-range-datepicker.netlify.app/](https://wc-range-datepicker.netlify.app/)
+
 ## Installation
 ```bash
 npm i wc-range-datepicker
