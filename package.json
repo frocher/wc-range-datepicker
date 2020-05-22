@@ -16,7 +16,8 @@
     "format:prettier": "prettier \"**/*.js\" \"**/*.ts\" --write --ignore-path .gitignore",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "format": "npm run format:eslint && npm run format:prettier",
-    "test": "tsc && karma start --coverage",
+    "test": "tsc && karma start",
+    "test:coverage": "tsc && karma start --coverage",
     "test:watch": "concurrently --kill-others --names tsc,karma \"npm run tsc:watch\" \"karma start --auto-watch=true --single-run=false\"",
     "storybook": "concurrently --kill-others --names tsc,storybook \"npm run tsc:watch\" \"start-storybook --node-resolve --watch --open\"",
     "storybook:build": "build-storybook"
