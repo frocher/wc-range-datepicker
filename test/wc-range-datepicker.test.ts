@@ -3,6 +3,7 @@ import { html, fixture, expect } from '@open-wc/testing';
 import { RangeDatepicker } from '../src/range-datepicker.js';
 import '../wc-range-datepicker.js';
 import { getMonth, getYear } from 'date-fns';
+import { fr } from 'date-fns/locale';
 
 describe('RangeDatepicker', () => {
   it('has month and year current month and year', async () => {
@@ -44,6 +45,19 @@ describe('RangeDatepicker', () => {
     expect(calendars.length).to.equal(1);
   });
 
+  it('has default language as null', async () => {
+    const el: RangeDatepicker = await fixture(
+      html` <wc-range-datepicker></wc-range-datepicker>`
+    );
+    expect(el.locale).to.equal(null);
+  });
+
+  it('has language as fr', async () => {
+    const el: RangeDatepicker = await fixture(
+      html` <wc-range-datepicker .locale=${fr}></wc-range-datepicker>`
+    );
+    expect(el.locale).to.equal(fr);
+  });
 
   it('passes the a11y audit', async () => {
     const el: RangeDatepicker = await fixture(
