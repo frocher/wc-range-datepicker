@@ -25,28 +25,28 @@
     "@material/mwc-icon-button": "^0.15.0",
     "@material/mwc-list": "^0.15.0",
     "@material/mwc-menu": "^0.15.0",
-    "date-fns": "^2.13.0",
+    "date-fns": "^2.14.0",
     "lit-element": "^2.2.1",
     "lit-html": "^1.1.2"
   },
   "devDependencies": {
-    "@open-wc/demoing-storybook": "^2.0.0",
+    "@open-wc/demoing-storybook": "^2.2.13",
     "@open-wc/eslint-config": "^2.0.0",
     "@open-wc/testing": "^2.0.0",
-    "@open-wc/testing-karma": "^3.3.27",
+    "@open-wc/testing-karma": "^3.3.29",
     "@types/node": "13.11.1",
-    "@typescript-eslint/eslint-plugin": "^2.20.0",
-    "@typescript-eslint/parser": "^2.20.0",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
     "concurrently": "^5.1.0",
     "deepmerge": "^3.2.0",
-    "es-dev-server": "^1.50.5",
+    "es-dev-server": "^1.50.7",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.11.0",
     "husky": "^1.0.0",
     "lint-staged": "^8.0.0",
     "prettier": "^2.0.4",
     "tslib": "^1.11.0",
-    "typescript": "^3.8.2"
+    "typescript": "^3.9.3"
   },
   "eslintConfig": {
     "extends": [
