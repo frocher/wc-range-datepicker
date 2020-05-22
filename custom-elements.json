@@ -6,25 +6,87 @@
       "description": "A datepicker",
       "properties": [
         {
-          "name": "title",
-          "type": "String",
-          "description": "The title of your component",
-          "default": "Hey there"
+          "name": "enableYearChange",
+          "type": "Boolean",
+          "description": "Display a select year control",
+          "default": false
         },
         {
-          "name": "counter",
+          "name": "forceNarrow",
+          "type": "Boolean",
+          "description": "Force narrow display",
+          "default": false
+        },
+        {
+          "name": "max",
+          "type": "String",
+          "description": "Maximal date. Format is Unix timestamp"
+        },
+        {
+          "name": "min",
+          "type": "String",
+          "description": "Minimal date. Format is Unix timestamp"
+        },
+        {
+          "name": "month",
           "type": "Number",
-          "description": "An action counter",
-          "default": 0
+          "description": "Set month.",
+          "default": 9
+        },
+        {
+          "name": "noRange",
+          "type": "Boolean",
+          "description": "If true only one date can be selected.",
+          "default": false
+        },
+        {
+          "name": "year",
+          "type": "Number",
+          "description": "Set year",
+          "default": 2018
         }
       ],
       "events": [],
       "slots": [],
       "cssProperties": [
         {
-          "name": "--wc-range-datepicker-text-color",
-          "description": "Main Text Color",
+          "name": "--wc-datepicker-cell-text",
+          "description": "Color of cell text",
           "type": "Color"
+        },
+        {
+          "name": "--wc-datepicker-cell-hover",
+          "description": "Color of hovered cell",
+          "type": "Color"
+        },
+        {
+          "name": "--wc-datepicker-cell-hovered-text",
+          "description": "Color of hovered cell text",
+          "type": "Color"
+        },
+        {
+          "name": "--wc-datepicker-cell-selected",
+          "description": "Color of selected cell",
+          "type": "Color"
+        },
+        {
+          "name": "--wc-datepicker-cell-selected-text",
+          "description": "Color of selected cell text",
+          "type": "Color"
+        },
+        {
+          "name": "--wc-current-day-color",
+          "description": "Color of current day background",
+          "type": "Color"
+        },
+        {
+          "name": "--wc-current-day-color-text",
+          "description": "Color of current day text",
+          "type": "Color"
+        },
+        {
+          "name": "--wc-current-day-font-weight",
+          "description": "Weight of current day text"
         }
       ]
     }
