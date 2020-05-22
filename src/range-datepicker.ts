@@ -1,6 +1,6 @@
 /* eslint-disable import/no-duplicates */
 import { html, css, LitElement, property, PropertyValues } from 'lit-element';
-import { getMonth, getYear, parse } from 'date-fns';
+import { getMonth, getYear } from 'date-fns';
 import './range-datepicker-calendar.js';
 import { RangeDatepickerCalendar } from './range-datepicker-calendar.js';
 
@@ -21,15 +21,6 @@ export class RangeDatepicker extends LitElement {
     }
   `;
 
-  /**
-   * Date from. Format is Unix timestamp.
-   */
-  @property({ type: String }) dateFrom: string | null = null;
-
-  /**
-   * Date to. Format is Unix timestamp.
-   */
-  @property({ type: String }) dateTo: string | null = null;
 
   /**
    * Array of disabled days. Format is Unix timestamp.
@@ -37,7 +28,7 @@ export class RangeDatepicker extends LitElement {
   @property({ type: Array }) disabledDays: Array<string> = [];
 
   /**
-   * Force display of only one month.
+   * Display a select year control.
    */
   @property({ type: Boolean }) enableYearChange = false;
 
@@ -45,11 +36,6 @@ export class RangeDatepicker extends LitElement {
    * Force display of only one month.
    */
   @property({ type: Boolean }) forceNarrow = false;
-
-  /**
-   * Current hovered date. Format is Unix timestamp.
-   */
-  @property({ type: String }) hoveredDate: string | null = null;
 
   /**
    * Set locale of the calendar.
@@ -68,13 +54,9 @@ export class RangeDatepicker extends LitElement {
 
   /**
    * Set month.
+   * Default is current month.
    */
   @property({ type: Number }) month: number;
-
-  /**
-   * If true, only one month is displayed.
-   */
-  @property({ type: Boolean }) narrow = false;
 
   /**
    * If true only one date can be selected.
@@ -87,14 +69,12 @@ export class RangeDatepicker extends LitElement {
    */
   @property({ type: Number }) year: number;
 
-  /**
-   * Set default date.
-   * Default is current year.
-   */
-  @property({ type: String }) defaultAs = 'today';
-
+  @property({ type: String }) protected dateFrom: string | null = null;
+  @property({ type: String }) protected dateTo: string | null = null;
+  @property({ type: String }) protected hoveredDate: string | null = null;
   @property({ type: Number }) protected monthPlus: number | null = null;
   @property({ type: Number }) protected yearPlus: number | null = null;
+  @property({ type: Boolean }) protected narrow = false;
 
   constructor() {
     super();
@@ -258,36 +238,10 @@ export class RangeDatepicker extends LitElement {
 
   localeChanged() {
     if (!this.month) {
-      switch (this.defaultAs) {
-        case 'dateFrom':
-          this.month = this.dateFrom
-            ? getMonth(parse(this.dateFrom, 't', new Date())) + 1
-            : getMonth(new Date());
-          break;
-        case 'dateTo':
-          this.month = this.dateTo
-            ? getMonth(parse(this.dateTo, 't', new Date())) + 1
-            : getMonth(new Date());
-          break;
-        default:
-          this.month = getMonth(new Date());
-      }
+      this.month = getMonth(new Date());
     }
     if (!this.year) {
-      switch (this.defaultAs) {
-        case 'dateFrom':
-          this.year = this.dateFrom
-            ? getYear(parse(this.dateFrom, 't', new Date()))
-            : getYear(new Date());
-          break;
-        case 'dateTo':
-          this.year = this.dateTo
-            ? getYear(parse(this.dateTo, 't', new Date()))
-            : getYear(new Date());
-          break;
-        default:
-          this.year = getYear(new Date());
-      }
+      this.year = getYear(new Date());
     }
   }
 

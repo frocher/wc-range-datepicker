@@ -52,10 +52,10 @@ class RangeDatepickerCell extends LitElement {
 
       width: 80%;
       height: 80%;
-      font-weight: var(--current-day-font-weight, bold);
+      font-weight: var(--wc-current-day-font-weight, bold);
       border-radius: 50%;
-      background-color: var(--current-day-background-color);
-      color: var(--current-day-color);
+      background-color: var(--wc-current-day-color);
+      color: var(--wc-current-day-color-text);
     }
 
     .day.disabled {
