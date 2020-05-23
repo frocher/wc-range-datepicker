@@ -24,7 +24,7 @@ npm install wc-range-datepicker
 ```
 
 ```js
-import 'wc-range-datepicker/wc-range-datepicker.js';
+import 'wc-range-datepicker/dist/wc-range-datepicker.js';
 ```
 
 ```js preview-story
