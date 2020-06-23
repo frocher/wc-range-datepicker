@@ -31,27 +31,27 @@
     "@material/mwc-list": "^0.15.0",
     "@material/mwc-menu": "^0.15.0",
     "date-fns": "^2.14.0",
-    "lit-element": "^2.2.1",
-    "lit-html": "^1.1.2"
+    "lit-element": "^2.3.0",
+    "lit-html": "^1.2.0"
   },
   "devDependencies": {
-    "@open-wc/demoing-storybook": "^2.2.13",
+    "@open-wc/demoing-storybook": "^2.3.10",
     "@open-wc/eslint-config": "^2.0.0",
-    "@open-wc/testing": "^2.0.0",
-    "@open-wc/testing-karma": "^3.3.29",
+    "@open-wc/testing": "^2.5.18",
+    "@open-wc/testing-karma": "^3.4.5",
     "@types/node": "13.11.1",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "concurrently": "^5.1.0",
     "deepmerge": "^3.2.0",
-    "es-dev-server": "^1.50.7",
+    "es-dev-server": "^1.55.1",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.11.0",
     "husky": "^1.0.0",
     "lint-staged": "^8.0.0",
     "prettier": "^2.0.4",
     "tslib": "^1.11.0",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.5"
   },
   "eslintConfig": {
     "extends": [
