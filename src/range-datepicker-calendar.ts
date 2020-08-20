@@ -1,5 +1,12 @@
 /* eslint-disable import/no-duplicates */
-import { html, css, LitElement, property, PropertyValues } from 'lit-element';
+import {
+  html,
+  css,
+  LitElement,
+  property,
+  PropertyValues,
+  TemplateResult,
+} from 'lit-element';
 import '@material/mwc-icon-button';
 import '@material/mwc-menu';
 import '@material/mwc-list/mwc-list-item';
@@ -190,7 +197,7 @@ export class RangeDatepickerCalendar extends LitElement {
     this.yearAndMonthChanged(this.year, this.month);
   }
 
-  render() {
+  render(): TemplateResult {
     return html`
       <div>
         <div class="header">
@@ -222,7 +229,7 @@ export class RangeDatepickerCalendar extends LitElement {
     `;
   }
 
-  renderPrevButton() {
+  renderPrevButton(): TemplateResult | null {
     if (this.prev || this.narrow || this.enableYearChange) {
       return html`<mwc-icon-button
         icon="chevron_left"
@@ -232,7 +239,7 @@ export class RangeDatepickerCalendar extends LitElement {
     return null;
   }
 
-  renderNextButton() {
+  renderNextButton(): TemplateResult | null {
     if (this.next || this.narrow || this.enableYearChange) {
       return html`<mwc-icon-button
         icon="chevron_right"
@@ -242,7 +249,7 @@ export class RangeDatepickerCalendar extends LitElement {
     return null;
   }
 
-  renderYear() {
+  renderYear(): TemplateResult {
     if (this.enableYearChange) {
       return html`
         <div class="year-container">
@@ -260,15 +267,15 @@ export class RangeDatepickerCalendar extends LitElement {
     return html`${this.year}`;
   }
 
-  renderYearItem(item: number) {
+  renderYearItem(item: number): TemplateResult {
     return html` <mwc-list-item value="${item}">${item}</mwc-list-item> `;
   }
 
-  renderDayOfWeek(dayOfWeek: string) {
+  renderDayOfWeek(dayOfWeek: string): TemplateResult {
     return html`<div class="th">${dayOfWeek}</div>`;
   }
 
-  renderWeek(week: Array<Day | null>) {
+  renderWeek(week: Array<Day | null>): TemplateResult {
     return html`
     <div class="tr">
       ${week.map(day => this.renderDay(day))}
@@ -277,7 +284,7 @@ export class RangeDatepickerCalendar extends LitElement {
     `;
   }
 
-  renderDay(day: Day | null) {
+  renderDay(day: Day | null): TemplateResult {
     return html`
       <div class="td ${this.tdIsEnabled(day)}">
         ${day
@@ -302,7 +309,8 @@ export class RangeDatepickerCalendar extends LitElement {
     `;
   }
 
-  async firstUpdated() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async firstUpdated(): Promise<any> {
     this.monthsList = [
       '01',
       '02',
@@ -323,7 +331,7 @@ export class RangeDatepickerCalendar extends LitElement {
     await this.updateComplete;
   }
 
-  updated(properties: PropertyValues) {
+  updated(properties: PropertyValues): void {
     if (properties.has('locale')) {
       this.localeChanged();
     }
@@ -339,12 +347,12 @@ export class RangeDatepickerCalendar extends LitElement {
     }
   }
 
-  isCurrentDate(day: Day) {
+  isCurrentDate(day: Day): boolean {
     const dayDate = day.date;
     return dayDate === this.currentDate;
   }
 
-  localeChanged() {
+  localeChanged(): void {
     const dayNamesOfTheWeek = [];
     for (let i = 0; i < 7; i++) {
       dayNamesOfTheWeek.push(this.locale.localize!.day(i, { width: 'short' }));
@@ -361,7 +369,7 @@ export class RangeDatepickerCalendar extends LitElement {
     this.dayNamesOfTheWeek = newDayNamesOfTheWeek;
   }
 
-  yearAndMonthChanged(year: number, month: string) {
+  yearAndMonthChanged(year: number, month: string): void {
     if (year && month) {
       let monthMinus = month;
       monthMinus = monthMinus.substring(monthMinus.length - 2);
@@ -413,17 +421,17 @@ export class RangeDatepickerCalendar extends LitElement {
     }
   }
 
-  computeCurrentMonthName(month: string, year: number) {
+  computeCurrentMonthName(month: string, year: number): string {
     return format(new Date(year, parseInt(month, 10) - 1), 'MMMM', {
       locale: this.locale,
     });
   }
 
-  tdIsEnabled(day: Day | null) {
+  tdIsEnabled(day: Day | null): string {
     return day ? 'enabled' : '';
   }
 
-  handleDateSelected(e: CustomEvent) {
+  handleDateSelected(e: CustomEvent): void {
     const { detail } = e;
     const { date } = detail;
     if (!this.noRange) {
@@ -447,7 +455,7 @@ export class RangeDatepickerCalendar extends LitElement {
     );
   }
 
-  handleOpenYearSelection() {
+  handleOpenYearSelection(): void {
     const menu = this.shadowRoot?.querySelector('.year-change') as Menu;
     const index = menu.items.findIndex(
       (item: ListItem) => item.value === this.year.toString()
@@ -456,13 +464,13 @@ export class RangeDatepickerCalendar extends LitElement {
     menu.show();
   }
 
-  handleYearSelected() {
+  handleYearSelected(): void {
     const menu = this.shadowRoot?.querySelector('.year-change') as Menu;
     const selected = menu.selected as ListItem;
     this.year = parseInt(selected?.value);
   }
 
-  handleDateHovered(e: CustomEvent) {
+  handleDateHovered(e: CustomEvent): void {
     if (!this.noRange) {
       this.hoveredDate = e.detail.date;
       this.dispatchEvent(
@@ -473,7 +481,7 @@ export class RangeDatepickerCalendar extends LitElement {
     }
   }
 
-  handleNextMonth() {
+  handleNextMonth(): void {
     const tbody = this.shadowRoot?.querySelector('.tbody');
     const monthName = this.shadowRoot?.querySelector('.header > div');
     tbody?.classList.add('withTransition');
@@ -519,7 +527,7 @@ export class RangeDatepickerCalendar extends LitElement {
     }, 100);
   }
 
-  handlePrevMonth() {
+  handlePrevMonth(): void {
     const tbody = this.shadowRoot?.querySelector('.tbody');
     const monthName = this.shadowRoot?.querySelector('.header > div');
     tbody?.classList.add('withTransition');
@@ -565,7 +573,7 @@ export class RangeDatepickerCalendar extends LitElement {
     }, 100);
   }
 
-  setYears(from: number, to: number) {
+  setYears(from: number, to: number): void {
     const yearsList = [];
     for (let i = from; i <= to; i += 1) {
       yearsList.push(i);

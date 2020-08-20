@@ -32,7 +32,9 @@ describe('RangeDatepicker', () => {
       html` <wc-range-datepicker></wc-range-datepicker> `
     );
 
-    const calendars = el.shadowRoot!.querySelectorAll('wc-range-datepicker-calendar');
+    const calendars = el.shadowRoot!.querySelectorAll(
+      'wc-range-datepicker-calendar'
+    );
     expect(calendars.length).to.equal(2);
   });
 
@@ -41,7 +43,9 @@ describe('RangeDatepicker', () => {
       html` <wc-range-datepicker forceNarrow="true"></wc-range-datepicker> `
     );
 
-    const calendars = el.shadowRoot!.querySelectorAll('wc-range-datepicker-calendar');
+    const calendars = el.shadowRoot!.querySelectorAll(
+      'wc-range-datepicker-calendar'
+    );
     expect(calendars.length).to.equal(1);
   });
 

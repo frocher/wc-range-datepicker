@@ -1,5 +1,12 @@
 /* eslint-disable import/no-duplicates */
-import { html, css, LitElement, property, PropertyValues } from 'lit-element';
+import {
+  html,
+  css,
+  LitElement,
+  property,
+  PropertyValues,
+  TemplateResult,
+} from 'lit-element';
 import { getMonth, getYear } from 'date-fns';
 import './range-datepicker-calendar.js';
 import { RangeDatepickerCalendar } from './range-datepicker-calendar.js';
@@ -20,7 +27,6 @@ export class RangeDatepicker extends LitElement {
       margin-right: 16px;
     }
   `;
-
 
   /**
    * Array of disabled days. Format is Unix timestamp.
@@ -84,13 +90,13 @@ export class RangeDatepicker extends LitElement {
     this.monthChanged(this.month, this.year);
   }
 
-  render() {
+  render(): TemplateResult {
     return this.isNarrow(this.forceNarrow, this.narrow)
       ? this.renderNarrow()
       : this.renderNormal();
   }
 
-  renderNormal() {
+  renderNormal(): TemplateResult {
     return html`
       <div id="container">
         <wc-range-datepicker-calendar
@@ -136,7 +142,7 @@ export class RangeDatepicker extends LitElement {
     `;
   }
 
-  renderNarrow() {
+  renderNarrow(): TemplateResult {
     return html`
       <wc-range-datepicker-calendar
         .disabledDays="${this.disabledDays}"
@@ -161,13 +167,13 @@ export class RangeDatepicker extends LitElement {
     `;
   }
 
-  firstUpdated() {
+  firstUpdated(): void {
     const mql: MediaQueryList = window.matchMedia('(max-width: 650px)');
     mql.addListener(mqlEvent => this.queryMatchesChanged(mqlEvent));
     this.queryMatchesChanged(mql);
   }
 
-  updated(properties: PropertyValues) {
+  updated(properties: PropertyValues): void {
     if (properties.has('month') || properties.has('year')) {
       this.monthChanged(this.month, this.year);
     }
@@ -191,12 +197,12 @@ export class RangeDatepicker extends LitElement {
     return forceNarrow || narrow;
   }
 
-  queryMatchesChanged(mql: MediaQueryList | MediaQueryListEvent) {
+  queryMatchesChanged(mql: MediaQueryList | MediaQueryListEvent): void {
     this.narrow = mql.matches;
     this.requestUpdate();
   }
 
-  handlePrevMonth() {
+  handlePrevMonth(): void {
     if (!this.enableYearChange) {
       const calendar = this.shadowRoot?.querySelector(
         'wc-range-datepicker-calendar[next]'
@@ -205,7 +211,7 @@ export class RangeDatepicker extends LitElement {
     }
   }
 
-  handleNextMonth() {
+  handleNextMonth(): void {
     if (!this.enableYearChange) {
       const calendar = this.shadowRoot?.querySelector(
         'wc-range-datepicker-calendar[prev]'
@@ -214,11 +220,11 @@ export class RangeDatepicker extends LitElement {
     }
   }
 
-  hoveredDateChanged(e: CustomEvent) {
+  hoveredDateChanged(e: CustomEvent): void {
     this.hoveredDate = e.detail.value;
   }
 
-  monthChanged(month: number, year: number) {
+  monthChanged(month: number, year: number): void {
     if (year && month) {
       this.monthPlus = (month % 12) + 1;
       if (this.monthPlus === 1) {
@@ -229,14 +235,14 @@ export class RangeDatepicker extends LitElement {
     }
   }
 
-  noRangeChanged(isNoRange: boolean, wasNoRange: boolean) {
+  noRangeChanged(isNoRange: boolean, wasNoRange: boolean): void {
     if (!wasNoRange && isNoRange) {
       this.dateTo = null;
       this.hoveredDate = null;
     }
   }
 
-  localeChanged() {
+  localeChanged(): void {
     if (!this.month) {
       this.month = getMonth(new Date());
     }
@@ -245,14 +251,14 @@ export class RangeDatepicker extends LitElement {
     }
   }
 
-  dateToChanged(e: CustomEvent) {
+  dateToChanged(e: CustomEvent): void {
     this.dateTo = e.detail.value;
     this.dispatchEvent(
       new CustomEvent('date-to-changed', { detail: { value: e.detail.value } })
     );
   }
 
-  dateFromChanged(e: CustomEvent) {
+  dateFromChanged(e: CustomEvent): void {
     this.dateFrom = e.detail.value;
     this.dispatchEvent(
       new CustomEvent('date-from-changed', {

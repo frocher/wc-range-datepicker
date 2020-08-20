@@ -15,18 +15,28 @@ describe('RangeDatepickerCalendar', () => {
 
   it('has language as fr', async () => {
     const el: RangeDatepickerCalendar = await fixture(
-      html` <wc-range-datepicker-calendar .locale=${fr}></wc-range-datepicker-calendar> `
+      html`
+        <wc-range-datepicker-calendar
+          .locale=${fr}
+        ></wc-range-datepicker-calendar>
+      `
     );
     expect(el.locale).to.equal(fr);
   });
 
   it('has prev and next month buttons', async () => {
     const el: RangeDatepickerCalendar = await fixture(
-      html` <wc-range-datepicker-calendar prev next></wc-range-datepicker-calendar> `
+      html`
+        <wc-range-datepicker-calendar prev next></wc-range-datepicker-calendar>
+      `
     );
 
-    const prev = el.shadowRoot!.querySelector('mwc-icon-button[icon="chevron_left"]');
-    const next = el.shadowRoot!.querySelector('mwc-icon-button[icon="chevron_right"]');
+    const prev = el.shadowRoot!.querySelector(
+      'mwc-icon-button[icon="chevron_left"]'
+    );
+    const next = el.shadowRoot!.querySelector(
+      'mwc-icon-button[icon="chevron_right"]'
+    );
 
     expect(prev).not.to.be.equal(null);
     expect(next).not.to.be.equal(null);

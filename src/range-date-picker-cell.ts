@@ -1,4 +1,11 @@
-import { LitElement, html, css, property, PropertyValues } from 'lit-element';
+import {
+  LitElement,
+  html,
+  css,
+  property,
+  PropertyValues,
+  TemplateResult,
+} from 'lit-element';
 import startOfDay from 'date-fns/startOfDay';
 import getTime from 'date-fns/getTime';
 import { Day } from './day.js';
@@ -77,7 +84,7 @@ class RangeDatepickerCell extends LitElement {
   @property({ type: String }) protected hoveredDate: number | null = null;
   @property({ type: Boolean }) protected isCurrentDate = false;
 
-  render() {
+  render(): TemplateResult {
     return html`
       <div
         @click="${this.handleTap}"
@@ -98,7 +105,7 @@ class RangeDatepickerCell extends LitElement {
     `;
   }
 
-  updated(properties: PropertyValues) {
+  updated(properties: PropertyValues): void {
     if (
       properties.has('dateFrom') ||
       properties.has('dateTo') ||
@@ -114,7 +121,12 @@ class RangeDatepickerCell extends LitElement {
     }
   }
 
-  dateChanged(dateFrom: string, dateTo: string, hoveredDate: number, day: Day) {
+  dateChanged(
+    dateFrom: string,
+    dateTo: string,
+    hoveredDate: number,
+    day: Day
+  ): void {
     this.selected = false;
     this.hovered = false;
     const parsedDateFrom = parseInt(dateFrom, 10);
@@ -141,7 +153,7 @@ class RangeDatepickerCell extends LitElement {
     }
   }
 
-  handleTap() {
+  handleTap(): void {
     if (!this.disabled) {
       this.dispatchEvent(
         new CustomEvent('date-is-selected', {
@@ -151,7 +163,7 @@ class RangeDatepickerCell extends LitElement {
     }
   }
 
-  handleHover() {
+  handleHover(): void {
     this.dispatchEvent(
       new CustomEvent('date-is-hovered', {
         detail: { date: this.day?.date },
@@ -159,11 +171,11 @@ class RangeDatepickerCell extends LitElement {
     );
   }
 
-  isSelected(selected: boolean) {
+  isSelected(selected: boolean): string {
     return selected ? 'selected' : '';
   }
 
-  isHovered(hovered: boolean) {
+  isHovered(hovered: boolean): string {
     return hovered ? 'hovered' : '';
   }
 
@@ -172,7 +184,7 @@ class RangeDatepickerCell extends LitElement {
     min: number,
     max: number,
     disabledDays: Array<string>
-  ) {
+  ): string {
     this.disabled = false;
 
     if (disabledDays && day && day.date) {
