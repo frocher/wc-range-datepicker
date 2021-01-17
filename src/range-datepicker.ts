@@ -85,7 +85,7 @@ export class RangeDatepicker extends LitElement {
   constructor() {
     super();
     const now = new Date();
-    this.month = getMonth(now);
+    this.month = getMonth(now) + 1;
     this.year = getYear(now);
     this.monthChanged(this.month, this.year);
   }
