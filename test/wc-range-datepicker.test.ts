@@ -12,7 +12,7 @@ describe('RangeDatepicker', () => {
     );
 
     const now = new Date();
-    const month = getMonth(now);
+    const month = getMonth(now) + 1;
     const year = getYear(now);
 
     expect(el.month).to.equal(month);
