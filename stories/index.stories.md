@@ -1,7 +1,7 @@
 ```js script
 import { html } from '@open-wc/demoing-storybook';
 import '../dist/wc-range-datepicker.js';
-import { fr } from 'date-fns/locale';
+import { fr } from 'date-fns/esm/locale';
 
 export default {
   title: 'RangeDatepicker',

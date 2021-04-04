@@ -22,7 +22,7 @@ import {
   subMonths,
   subYears,
 } from 'date-fns';
-import { enUS } from 'date-fns/locale';
+import enUS from 'date-fns/locale';
 import { ListItem } from '@material/mwc-list/mwc-list-item';
 import { Menu } from '@material/mwc-menu';
 import './range-date-picker-cell.js';
@@ -203,12 +203,8 @@ export class RangeDatepickerCalendar extends LitElement {
         <div class="header">
           ${this.renderPrevButton()}
           <div class="headerTitle">
-            <div>
-              ${this.computeCurrentMonthName(this.month, this.year)}
-            </div>
-            <div>
-              ${this.renderYear()}
-            </div>
+            <div>${this.computeCurrentMonthName(this.month, this.year)}</div>
+            <div>${this.renderYear()}</div>
           </div>
           ${this.renderNextButton()}
         </div>

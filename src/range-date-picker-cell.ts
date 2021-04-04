@@ -6,8 +6,7 @@ import {
   PropertyValues,
   TemplateResult,
 } from 'lit-element';
-import startOfDay from 'date-fns/startOfDay';
-import getTime from 'date-fns/getTime';
+import { getTime, startOfDay } from 'date-fns';
 import { Day } from './day.js';
 
 class RangeDatepickerCell extends LitElement {
@@ -98,9 +97,7 @@ class RangeDatepickerCell extends LitElement {
           this.disabledDays
         )}"
       >
-        <div class="currentDayMarker">
-          ${this.day?.title}
-        </div>
+        <div class="currentDayMarker">${this.day?.title}</div>
       </div>
     `;
   }
