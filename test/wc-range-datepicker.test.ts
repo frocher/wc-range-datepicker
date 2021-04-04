@@ -3,7 +3,7 @@ import { html, fixture, expect } from '@open-wc/testing';
 import { RangeDatepicker } from '../src/range-datepicker.js';
 import '../wc-range-datepicker.js';
 import { getMonth, getYear } from 'date-fns';
-import { fr } from 'date-fns/locale';
+import { fr } from 'date-fns/esm/locale';
 
 describe('RangeDatepicker', () => {
   it('has month and year current month and year', async () => {
