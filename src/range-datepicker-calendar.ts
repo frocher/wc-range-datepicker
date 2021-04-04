@@ -22,7 +22,7 @@ import {
   subMonths,
   subYears,
 } from 'date-fns';
-import enUS from 'date-fns/locale';
+import { enUS } from 'date-fns/esm/locale';
 import { ListItem } from '@material/mwc-list/mwc-list-item';
 import { Menu } from '@material/mwc-menu';
 import './range-date-picker-cell.js';
