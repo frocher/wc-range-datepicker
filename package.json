@@ -27,12 +27,11 @@
     "storybook:build": "build-storybook"
   },
   "dependencies": {
-    "@material/mwc-icon-button": "^0.20.0",
-    "@material/mwc-list": "^0.20.0",
-    "@material/mwc-menu": "^0.20.0",
-    "date-fns": "^2.19.0",
-    "lit-element": "^2.4.0",
-    "lit-html": "^1.3.0"
+    "@material/mwc-icon-button": "^0.25.1",
+    "@material/mwc-list": "^0.25.1",
+    "@material/mwc-menu": "^0.25.1",
+    "date-fns": "^2.23.0",
+    "lit": "^2.0.0"
   },
   "devDependencies": {
     "@open-wc/demoing-storybook": "^2.4.7",

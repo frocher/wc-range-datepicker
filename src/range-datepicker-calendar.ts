@@ -3,10 +3,10 @@ import {
   html,
   css,
   LitElement,
-  property,
   PropertyValues,
   TemplateResult,
-} from 'lit-element';
+} from 'lit';
+import { property } from 'lit/decorators.js';
 import '@material/mwc-icon-button';
 import '@material/mwc-menu';
 import '@material/mwc-list/mwc-list-item';
