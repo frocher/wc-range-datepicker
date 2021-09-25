@@ -2,10 +2,10 @@ import {
   LitElement,
   html,
   css,
-  property,
   PropertyValues,
   TemplateResult,
-} from 'lit-element';
+} from 'lit';
+import { property } from 'lit/decorators.js';
 import { getTime, startOfDay } from 'date-fns';
 import { Day } from './day.js';
 

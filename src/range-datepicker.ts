@@ -3,10 +3,10 @@ import {
   html,
   css,
   LitElement,
-  property,
   PropertyValues,
   TemplateResult,
-} from 'lit-element';
+} from 'lit';
+import { property } from 'lit/decorators.js';
 import { getMonth, getYear } from 'date-fns';
 import './range-datepicker-calendar.js';
 import { RangeDatepickerCalendar } from './range-datepicker-calendar.js';
@@ -51,12 +51,12 @@ export class RangeDatepicker extends LitElement {
   /**
    * Max date. Format is Unix timestamp
    */
-  @property({ type: String }) max: string | null = null;
+  @property({ type: String }) max: string | null = "8640000000000";
 
   /**
    * Minimal date. Format is Unix timestamp
    */
-  @property({ type: String }) min: string | null = null;
+  @property({ type: String }) min: string | null = "-8640000000000";
 
   /**
    * Set month.
