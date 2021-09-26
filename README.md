@@ -12,7 +12,7 @@ npm i wc-range-datepicker
 ## Usage
 ```html
 <script type="module">
-  import 'wc-range-datepicker/dist/wc-range-datepicker.js';
+  import 'wc-range-datepicker/wc-range-datepicker.js';
 </script>
 
 <wc-range-datepicker></wc-range-datepicker>
