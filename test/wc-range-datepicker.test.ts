@@ -1,14 +1,14 @@
-import { html, fixture, expect } from '@open-wc/testing';
-
-import { RangeDatepicker } from '../src/range-datepicker.js';
-import '../wc-range-datepicker.js';
+import { html } from 'lit';
+import { fixture, expect } from '@open-wc/testing';
 import { getMonth, getYear } from 'date-fns';
 import { fr } from 'date-fns/esm/locale';
+import { RangeDatepicker } from '../src/range-datepicker.js';
+import '../src/wc-range-datepicker.js';
 
 describe('RangeDatepicker', () => {
   it('has month and year current month and year', async () => {
-    const el: RangeDatepicker = await fixture(
-      html` <wc-range-datepicker></wc-range-datepicker> `
+    const el = await fixture<RangeDatepicker>(
+      html`<wc-range-datepicker></wc-range-datepicker>`
     );
 
     const now = new Date();
@@ -21,7 +21,7 @@ describe('RangeDatepicker', () => {
 
   it('has month equal 4', async () => {
     const el: RangeDatepicker = await fixture(
-      html` <wc-range-datepicker month="04"></wc-range-datepicker> `
+      html`<wc-range-datepicker month="04"></wc-range-datepicker>`
     );
 
     expect(el.month).to.equal(4);

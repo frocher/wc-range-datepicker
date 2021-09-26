@@ -1,5 +1,6 @@
 /* eslint-disable import/no-duplicates */
-import { html, fixture, expect } from '@open-wc/testing';
+import { html } from 'lit';
+import { fixture, expect } from '@open-wc/testing';
 import { enUS, fr } from 'date-fns/esm/locale';
 
 import { RangeDatepickerCalendar } from '../src/range-datepicker-calendar.js';

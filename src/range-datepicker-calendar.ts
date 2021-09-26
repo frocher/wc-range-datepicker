@@ -1,11 +1,5 @@
 /* eslint-disable import/no-duplicates */
-import {
-  html,
-  css,
-  LitElement,
-  PropertyValues,
-  TemplateResult,
-} from 'lit';
+import { html, css, LitElement, PropertyValues, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import '@material/mwc-icon-button';
 import '@material/mwc-menu';
@@ -152,19 +146,27 @@ export class RangeDatepickerCalendar extends LitElement {
   @property({ type: String }) hoveredDate: string | null = null;
 
   @property({ type: Boolean }) enableYearChange = false;
+
   @property({ type: String }) month = '01';
+
   @property({ type: Boolean }) narrow = false;
+
   @property({ type: Boolean }) noRange = false;
+
   @property({ type: Boolean }) next = false;
+
   @property({ type: Boolean }) prev = false;
+
   @property({ type: String }) year = 2020;
+
   @property({ type: Array }) disabledDays: Array<string> = [];
 
   @property({ type: Object })
-  public get locale(): Locale {
+  public get locale() {
     return this._locale ? this._locale : enUS;
   }
-  public set locale(value: Locale) {
+
+  public set locale(value) {
     const oldValue = this._locale;
     this._locale = value;
     this.requestUpdate('locale', oldValue);
@@ -181,13 +183,16 @@ export class RangeDatepickerCalendar extends LitElement {
   @property({ type: String }) min: string | null = null;
 
   @property({ type: Array }) protected yearsList: Array<number> = [];
-  @property({ type: Array }) protected monthsList: Array<string> = [];
-  @property({ type: Array }) protected dayNamesOfTheWeek: Array<string> = [];
-  @property({ type: Array }) protected daysOfMonth: Array<
-    Array<Day | null>
-  > = [];
 
-  protected _locale: Locale | null = null;
+  @property({ type: Array }) protected monthsList: Array<string> = [];
+
+  @property({ type: Array }) protected dayNamesOfTheWeek: Array<string> = [];
+
+  @property({ type: Array }) protected daysOfMonth: Array<Array<Day | null>> =
+    [];
+
+  protected _locale: any | null = null;
+
   protected currentDate: number;
 
   constructor() {
@@ -273,10 +278,7 @@ export class RangeDatepickerCalendar extends LitElement {
 
   renderWeek(week: Array<Day | null>): TemplateResult {
     return html`
-    <div class="tr">
-      ${week.map(day => this.renderDay(day))}
-    </template>
-    </div>
+      <div class="tr">${week.map(day => this.renderDay(day))}</div>
     `;
   }
 
@@ -350,7 +352,7 @@ export class RangeDatepickerCalendar extends LitElement {
 
   localeChanged(): void {
     const dayNamesOfTheWeek = [];
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 7; i += 1) {
       dayNamesOfTheWeek.push(this.locale.localize!.day(i, { width: 'short' }));
     }
 
@@ -367,7 +369,7 @@ export class RangeDatepickerCalendar extends LitElement {
 
   yearAndMonthChanged(year: number, month: string): void {
     if (year && month) {
-      let monthMinus = month;
+      let monthMinus = `${month}`;
       monthMinus = monthMinus.substring(monthMinus.length - 2);
       let startDateString = `01/${monthMinus}/${year}`;
       let startDateFn = parse(startDateString, 'dd/MM/yyyy', new Date());
@@ -393,7 +395,7 @@ export class RangeDatepickerCalendar extends LitElement {
         columns.push(columnFn);
 
         if (dayNumberFn === lastDayOfWeek) {
-          for (let i = columns.length; i < lastDayOfWeek + 1; i++) {
+          for (let i = columns.length; i < lastDayOfWeek + 1; i += 1) {
             columns.unshift(null);
           }
           rows.push(columns.slice());
@@ -406,7 +408,7 @@ export class RangeDatepickerCalendar extends LitElement {
         if (startDateString === endDateString) {
           const endColumnFn = new Day(startDateFn);
           columns.push(endColumnFn);
-          for (let i = columns.length; i <= lastDayOfWeek; i++) {
+          for (let i = columns.length; i <= lastDayOfWeek; i += 1) {
             columns.push(null);
           }
           rows.push(columns.slice());
@@ -463,7 +465,7 @@ export class RangeDatepickerCalendar extends LitElement {
   handleYearSelected(): void {
     const menu = this.shadowRoot?.querySelector('.year-change') as Menu;
     const selected = menu.selected as ListItem;
-    this.year = parseInt(selected?.value);
+    this.year = parseInt(selected?.value, 10);
   }
 
   handleDateHovered(e: CustomEvent): void {
@@ -498,7 +500,7 @@ export class RangeDatepickerCalendar extends LitElement {
       const yearPlusString = format(yearPlusDate, 'yyyy', {
         locale: this.locale,
       });
-      this.year = parseInt(yearPlusString);
+      this.year = parseInt(yearPlusString, 10);
     }
     this.dispatchEvent(new CustomEvent('next-month'));
 
@@ -544,7 +546,7 @@ export class RangeDatepickerCalendar extends LitElement {
       const yearMinusString = format(yearMinusDate, 'yyyy', {
         locale: this.locale,
       });
-      this.year = parseInt(yearMinusString);
+      this.year = parseInt(yearMinusString, 10);
     }
     this.dispatchEvent(new CustomEvent('prev-month'));
 

@@ -1,4 +1,4 @@
-  {
+{
   "compilerOptions": {
     "target": "es2018",
     "module": "esnext",
@@ -11,7 +11,11 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "outDir": "dist",
+    "sourceMap": true,
+    "inlineSources": true,
+    "rootDir": "./",
     "declaration": true,
+    "incremental": true
   },
   "include": ["**/*.ts"]
 }

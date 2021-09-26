@@ -1,11 +1,5 @@
 /* eslint-disable import/no-duplicates */
-import {
-  html,
-  css,
-  LitElement,
-  PropertyValues,
-  TemplateResult,
-} from 'lit';
+import { html, css, LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 import { getMonth, getYear } from 'date-fns';
 import './range-datepicker-calendar.js';
@@ -46,17 +40,17 @@ export class RangeDatepicker extends LitElement {
   /**
    * Set locale of the calendar.
    */
-  @property({ type: Object }) locale: Locale | null = null;
+  @property({ type: Object }) locale: any | null = null;
 
   /**
    * Max date. Format is Unix timestamp
    */
-  @property({ type: String }) max: string | null = "8640000000000";
+  @property({ type: String }) max: string | null = '8640000000000';
 
   /**
    * Minimal date. Format is Unix timestamp
    */
-  @property({ type: String }) min: string | null = "-8640000000000";
+  @property({ type: String }) min: string | null = '-8640000000000';
 
   /**
    * Set month.
@@ -76,10 +70,15 @@ export class RangeDatepicker extends LitElement {
   @property({ type: Number }) year: number;
 
   @property({ type: String }) protected dateFrom: string | null = null;
+
   @property({ type: String }) protected dateTo: string | null = null;
+
   @property({ type: String }) protected hoveredDate: string | null = null;
+
   @property({ type: Number }) protected monthPlus: number | null = null;
+
   @property({ type: Number }) protected yearPlus: number | null = null;
+
   @property({ type: Boolean }) protected narrow = false;
 
   constructor() {
@@ -90,13 +89,13 @@ export class RangeDatepicker extends LitElement {
     this.monthChanged(this.month, this.year);
   }
 
-  render(): TemplateResult {
+  render() {
     return this.isNarrow(this.forceNarrow, this.narrow)
       ? this.renderNarrow()
       : this.renderNormal();
   }
 
-  renderNormal(): TemplateResult {
+  renderNormal() {
     return html`
       <div id="container">
         <wc-range-datepicker-calendar
@@ -142,7 +141,7 @@ export class RangeDatepicker extends LitElement {
     `;
   }
 
-  renderNarrow(): TemplateResult {
+  renderNarrow() {
     return html`
       <wc-range-datepicker-calendar
         .disabledDays="${this.disabledDays}"
