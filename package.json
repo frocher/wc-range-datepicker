@@ -6,17 +6,21 @@
   "license": "MIT",
   "homepage": "https://wc-range-datepicker.netlify.app",
   "repository": "github:frocher/wc-range-datepicker",
-  "main": "dist/src/index.js",
-  "module": "dist/src/index.js",
+  "main": "index.js",
+  "module": "index.js",
   "exports": {
-    ".": "./dist/src/index.js",
-    "./wc-range-datepicker.js": "./dist/src/wc-range-datepicker.js"
+    ".": "./index.js",
+    "./wc-range-datepicker.js": "./wc-range-datepicker.js"
   },
+  "np": {
+		"yarn": false,
+		"contents": "dist/src"
+	},
   "scripts": {
     "analyze": "cem analyze --litelement",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
     "build": "tsc && npm run analyze -- --exclude dist",
-    "prepublish": "tsc && npm run analyze -- --exclude dist",
+    "prepublish": "tsc && npm run analyze -- --exclude dist && cp package.json dist/src",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "test": "tsc && wtr --coverage",
