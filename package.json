@@ -16,10 +16,14 @@
     "yarn": false,
     "contents": "dist/src"
   },
+  "files": [
+    "/dist/**"
+  ],
   "scripts": {
     "analyze": "cem analyze --litelement",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
     "build": "tsc && npm run analyze -- --exclude dist",
+    "copypkg": "cp package.json dist/src",
     "prepublish": "tsc && npm run analyze -- --exclude dist && cp package.json dist/src",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
