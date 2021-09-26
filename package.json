@@ -1,6 +1,6 @@
 {
   "name": "wc-range-datepicker",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Webcomponent wc-range-datepicker following open-wc recommendations",
   "author": "Fred Rocher",
   "license": "MIT",
@@ -13,9 +13,9 @@
     "./wc-range-datepicker.js": "./wc-range-datepicker.js"
   },
   "np": {
-		"yarn": false,
-		"contents": "dist/src"
-	},
+    "yarn": false,
+    "contents": "dist/src"
+  },
   "scripts": {
     "analyze": "cem analyze --litelement",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
