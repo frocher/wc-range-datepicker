@@ -1,10 +1,4 @@
-import {
-  LitElement,
-  html,
-  css,
-  PropertyValues,
-  TemplateResult,
-} from 'lit';
+import { LitElement, html, css, PropertyValues, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { getTime, startOfDay } from 'date-fns';
 import { Day } from './day.js';
@@ -70,24 +64,36 @@ class RangeDatepickerCell extends LitElement {
   `;
 
   @property({ type: Object }) day: Day | null = null;
+
   @property({ type: Boolean }) selected = false;
+
   @property({ type: Boolean }) hovered = false;
+
   @property({ type: String }) dateTo: string | null = null;
+
   @property({ type: String }) dateFrom: string | null = null;
+
   @property({ type: String }) month: string | null = null;
+
   @property({ type: Number }) min: number | null = null;
+
   @property({ type: Number }) max: number | null = null;
+
   @property({ type: Boolean }) disabled = false;
+
   @property({ type: Array }) disabledDays: Array<string> = [];
 
   @property({ type: String }) protected hoveredDate: number | null = null;
+
   @property({ type: Boolean }) protected isCurrentDate = false;
 
   render(): TemplateResult {
     return html`
       <div
         @click="${this.handleTap}"
+        @keydown="${this.handleTap}"
         @mouseover="${this.handleHover}"
+        @focus="${this.handleHover}"
         class="day ${this.isCurrentDate ? 'currentDate' : ''} ${this.isSelected(
           this.selected
         )} ${this.isHovered(this.hovered)} ${this.isEnabled(
