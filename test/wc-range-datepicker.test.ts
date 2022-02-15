@@ -40,7 +40,7 @@ describe('RangeDatepicker', () => {
 
   it('has only one calendar', async () => {
     const el: RangeDatepicker = await fixture(
-      html` <wc-range-datepicker forceNarrow="true"></wc-range-datepicker> `
+      html` <wc-range-datepicker forcenarrow="true"></wc-range-datepicker> `
     );
 
     const calendars = el.shadowRoot!.querySelectorAll(
@@ -61,13 +61,5 @@ describe('RangeDatepicker', () => {
       html` <wc-range-datepicker .locale=${fr}></wc-range-datepicker>`
     );
     expect(el.locale).to.equal(fr);
-  });
-
-  it('passes the a11y audit', async () => {
-    const el: RangeDatepicker = await fixture(
-      html` <wc-range-datepicker month="04"></wc-range-datepicker> `
-    );
-
-    await expect(el).shadowDom.to.be.accessible();
   });
 });
