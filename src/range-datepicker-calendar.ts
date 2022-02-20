@@ -255,12 +255,13 @@ export class RangeDatepickerCalendar extends LitElement {
       return html`
         <div class="year-container">
           ${this.year}
-          <mwc-icon-button icon="arrow_drop_down" @click="${
-            this.handleOpenYearSelection
-          }"></mwc-icon-button>
+          <mwc-icon-button
+            icon="arrow_drop_down"
+            @click="${this.handleOpenYearSelection}"
+          ></mwc-icon-button>
           <mwc-menu class="year-change" @selected="${this.handleYearSelected}">
-          ${this.yearsList.map(i => this.renderYearItem(i))}
-          </mwc-men>
+            ${this.yearsList.map(i => this.renderYearItem(i))}
+          </mwc-menu>
         </div>
       `;
     }
@@ -295,6 +296,7 @@ export class RangeDatepickerCalendar extends LitElement {
                 .hoveredDate="${this.hoveredDate}"
                 .dateTo="${this.dateTo}"
                 .dateFrom="${this.dateFrom}"
+                .locale="${this.locale}"
                 .day="${day}"
                 ?isCurrentDate="${this.isCurrentDate(day)}"
                 @date-is-selected="${this.handleDateSelected}"
@@ -432,6 +434,7 @@ export class RangeDatepickerCalendar extends LitElement {
   handleDateSelected(e: CustomEvent): void {
     const { detail } = e;
     const { date } = detail;
+
     if (!this.noRange) {
       if (this.dateFrom && this.dateTo) {
         this.dateFrom = date;
@@ -445,6 +448,7 @@ export class RangeDatepickerCalendar extends LitElement {
     } else {
       this.dateFrom = date;
     }
+
     this.dispatchEvent(
       new CustomEvent('date-from-changed', { detail: { value: this.dateFrom } })
     );

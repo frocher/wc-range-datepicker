@@ -1,6 +1,7 @@
 import { LitElement, html, css, PropertyValues, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
-import { getTime, startOfDay } from 'date-fns';
+import { format, getTime, startOfDay } from 'date-fns';
+import { enUS } from 'date-fns/esm/locale';
 import { Day } from './day.js';
 
 class RangeDatepickerCell extends LitElement {
@@ -20,6 +21,15 @@ class RangeDatepickerCell extends LitElement {
       margin: 0;
       padding: 0;
       color: var(--wc-datepicker-cell-text);
+
+      border: none;
+      outline: none;
+      background-color: transparent;
+    }
+
+    .day:focus {
+      outline: 1px solid
+        var(--wc-datepicker-cell-hovered, rgba(0, 150, 136, 0.5));
     }
 
     .day:not(.disabled):hover {
@@ -87,11 +97,23 @@ class RangeDatepickerCell extends LitElement {
 
   @property({ type: Boolean }) protected isCurrentDate = false;
 
+  @property({ type: Object })
+  public get locale() {
+    return this._locale ? this._locale : enUS;
+  }
+
+  public set locale(value) {
+    const oldValue = this._locale;
+    this._locale = value;
+    this.requestUpdate('locale', oldValue);
+  }
+
+  protected _locale: any | null = null;
+
   render(): TemplateResult {
     return html`
-      <div
+      <button
         @click="${this.handleTap}"
-        @keydown="${this.handleTap}"
         @mouseover="${this.handleHover}"
         @focus="${this.handleHover}"
         class="day ${this.isCurrentDate ? 'currentDate' : ''} ${this.isSelected(
@@ -102,9 +124,11 @@ class RangeDatepickerCell extends LitElement {
           this.max!,
           this.disabledDays
         )}"
+        ?disabled="${this.disabled}"
+        title="${this.getTitle(this.day?.date)}"
       >
         <div class="currentDayMarker">${this.day?.title}</div>
-      </div>
+      </button>
     `;
   }
 
@@ -203,6 +227,15 @@ class RangeDatepickerCell extends LitElement {
       }
     }
     return '';
+  }
+
+  getTitle(date: number | undefined): string {
+    if (date === undefined) {
+      return '';
+    }
+    return format(date * 1000, 'PPPP', {
+      locale: this.locale,
+    });
   }
 }
 
