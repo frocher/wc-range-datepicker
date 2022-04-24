@@ -6,11 +6,11 @@
   "license": "MIT",
   "homepage": "https://wc-range-datepicker.netlify.app",
   "repository": "github:frocher/wc-range-datepicker",
-  "main": "index.js",
-  "module": "index.js",
+  "main": "dist/src/index.js",
+  "module": "dist/src/index.js",
   "exports": {
-    ".": "./index.js",
-    "./wc-range-datepicker.js": "./wc-range-datepicker.js"
+    ".": "./dist/src/index.js",
+    "./wc-range-datepicker.js": "./dist/src/wc-range-datepicker.js"
   },
   "files": [
     "**"
